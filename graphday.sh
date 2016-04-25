@@ -11,7 +11,7 @@ UTCOFFSET=$(($LOCALSECONDS-$UTCSECONDS))
 interval="INTERVAL 50 HOUR "
 host=$(hostname)
 
-pushd $HOME/lnxdiagd >/dev/null
+pushd $HOME/domod >/dev/null
   mysql -h sql.lan --skip-column-names -e "USE domotica; SELECT * FROM ds18 where (sample_time >=NOW() - $interval);" | sed 's/\t/;/g;s/\n//g' > /tmp/sql21.csv
   #mysql -h sql.lan --skip-column-names -e "USE domotica; SELECT * FROM sysload where (sample_time >=NOW() - $interval) AND (host = '$host');" | sed 's/\t/;/g;s/\n//g' > /tmp/sql12.csv
   #mysql -h sql.lan --skip-column-names -e "USE domotica; SELECT * FROM sysnet  where (sample_time >=NOW() - $interval) AND (host = '$host');" | sed 's/\t/;/g;s/\n//g' > /tmp/sql13.csv
