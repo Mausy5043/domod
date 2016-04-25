@@ -23,7 +23,7 @@ X_min = X_min + utc_offset - 946684800
 X_max = X_max + utc_offset - 946684800
 
 # stats to be calculated here for Y-axis
-stats ifname using 4 name "Y" nooutput
+stats ifname using 3 name "Y" nooutput
 Y_min = Y_min * 0.90
 Y_max = Y_max * 1.10
 
