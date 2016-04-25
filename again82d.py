@@ -4,7 +4,6 @@
 
 import ConfigParser
 import os
-import platform
 import shutil
 import sys
 import syslog
@@ -29,26 +28,16 @@ class MyDaemon(Daemon):
     syslog_trace("Config file   : {0}".format(s), False, DEBUG)
     syslog_trace("Options       : {0}".format(iniconf.items(inisection)), False, DEBUG)
     reportTime      = iniconf.getint(inisection, "reporttime")
-    # cycles          = iniconf.getint(inisection, "cycles")
     samplesperCycle = iniconf.getint(inisection, "samplespercycle")
     flock           = iniconf.get(inisection, "lockfile")
     fdata           = iniconf.get(inisection, "resultfile")
-
-    # samples         = samplesperCycle * cycles          # total number of samples averaged
     sampleTime      = reportTime/samplesperCycle        # time [s] between samples
-    # cycleTime       = samples * sampleTime              # time [s] per cycle
-
-    try:
-      hwdevice      = iniconf.get("11", NODE + ".hwdevice")
-    except ConfigParser.NoOptionError as e:  # no hwdevice
-      hwdevice      = "nohwdevice"
-      pass
 
     while True:
       try:
         startTime   = time.time()
 
-        do_markdown(flock, fdata, hwdevice)
+        do_markdown(flock, fdata)
 
         waitTime    = sampleTime - (time.time() - startTime) - (startTime % sampleTime)
         if (waitTime > 0):
@@ -62,7 +51,7 @@ class MyDaemon(Daemon):
         syslog_trace(traceback.format_exc(), syslog.LOG_ALERT, DEBUG)
         raise
 
-def do_markdown(flock, fdata, hwdevice):
+def do_markdown(flock, fdata):
   home              = os.path.expanduser('~')
 
   lock(flock)

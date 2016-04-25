@@ -30,19 +30,11 @@ class MyDaemon(Daemon):
     syslog_trace("Config file   : {0}".format(s), False, DEBUG)
     syslog_trace("Options       : {0}".format(iniconf.items(inisection)), False, DEBUG)
     reportTime      = iniconf.getint(inisection, "reporttime")
-    # cycles          = iniconf.getint(inisection, "cycles")
     samplesperCycle = iniconf.getint(inisection, "samplespercycle")
     flock           = iniconf.get(inisection, "lockfile")
-
     scriptname      = iniconf.get(inisection, "lftpscript")
-
-    # samples         = samplesperCycle * cycles           # total number of samples averaged
     sampleTime      = reportTime/samplesperCycle         # time [s] between samples
-    # cycleTime       = samples * sampleTime               # time [s] per cycle
 
-    # mount_path      = '/mnt/share1/'
-    # remote_path     = mount_path + NODE
-    # remote_lock     = remote_path + '/client.lock'
     while True:
       try:
         startTime   = time.time()
