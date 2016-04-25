@@ -63,7 +63,7 @@ def do_mv_data(flock, homedir, script):
   cmnd = subprocess.Popen(cmnd, stdout=subprocess.PIPE).stdout.read()
   syslog_trace("...:  {0}.".format(cmnd), False, DEBUG)
 
-  if os.path.isfile('/tmp/' + MYAPP + '/site/text.md'):
+  if os.path.isfile('/tmp/' + MYAPP + '/site/default.md'):
     write_lftp(script)
     cmnd = ['lftp', '-f', script]
     syslog_trace("...:  {0}.".format(cmnd), False, DEBUG)
