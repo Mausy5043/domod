@@ -104,7 +104,6 @@ def read_temp_raw():
 
 def do_work():
   T0 = None
-  D = []
 
   lines = read_temp_raw()
   if lines[0].strip()[-3:] == 'YES':
@@ -115,9 +114,9 @@ def do_work():
 
   if T0 is not None:
     T = T0 * DS18B20_gain + DS18B20_offset
-    D.append(T)
     syslog_trace("  T0 = {0:0.1f}*C        T = {1:0.1f}degC".format(T0, T), False, DEBUG)
-  return D
+
+  return T
 
 def do_report(result, flock, fdata):
   # Get the time and date in human-readable form and UN*X-epoch...
@@ -125,7 +124,7 @@ def do_report(result, flock, fdata):
   outEpoch = int(time.strftime('%s'))
   # round to current minute to ease database JOINs
   outEpoch = outEpoch - (outEpoch % 60)
-  #fresult = ', '.join(map(str, result))
+  # fresult = ', '.join(map(str, result))
   lock(flock)
   with open(fdata, 'a') as f:
     f.write('{0}, {1}, {2}\n'.format(outDate, outEpoch, float(result)))
