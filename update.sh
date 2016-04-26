@@ -25,9 +25,10 @@ pushd "$HOME/domod"
   # Set permissions
   chmod -R 744 ./*
 
-  pushd DHTXXD
-    gcc -Wall -pthread -o DHTXXD test_DHTXXD.c DHTXXD.c -lpigpiod_if2
-  popd
+  #pushd DHTXXD
+  #  echo "Compiling DHTXXD"
+  #  gcc -Wall -pthread -o DHTXXD test_DHTXXD.c DHTXXD.c -lpigpiod_if2
+  #popd
 
   for fname in $DIFFLIST; do
     echo ">   $fname was updated from GIT"

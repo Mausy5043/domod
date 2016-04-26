@@ -26,9 +26,9 @@ pushd "$HOME/domod"
   # ref: http://abyz.co.uk/rpi/pigpio/examples.html#pdif2_DHTXXD
   pushd DHTXXD
     gcc -Wall -pthread -o DHTXXD test_DHTXXD.c DHTXXD.c -lpigpiod_if2
-
-    sudo pigpiod
-    ./DHTXXD -g18
+    # sudo pigpiod
+    mv DHTXXD $HOME/bin/DHTXXD
+    DHTXXD -g18
   popd
 popd
 
