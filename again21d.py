@@ -4,13 +4,14 @@
 # uses moving averages
 
 # Wiring :
-# VIN              = 01  - 3v3
-# Data             = 07  - GPIO04
-# GND              = 09  - GND
+# Sensor pin       : R-Pi print
+# =================:==============
+# VIN   (red)      = 01  - 3v3
+# Data  (yellow)   = 07  - GPIO04
+# GND   (blue)     = 09  - GND
 
 import ConfigParser
 import glob
-# import math
 import os
 import sys
 import syslog

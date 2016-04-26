@@ -6,9 +6,9 @@ USE domotica;
 DROP TABLE IF EXISTS ds18;
 
 CREATE TABLE `ds18` (
-  `sample_time`  datetime,
-  `sample_epoch` int(11) unsigned,
-  `temperature`  decimal(5,2),
+  `sample_time`   datetime,
+  `sample_epoch`  int(11) unsigned,
+  `temperature`   decimal(5,2),
   PRIMARY KEY (`sample_time`)
   ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 

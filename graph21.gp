@@ -28,7 +28,7 @@ Y_min = Y_min * 0.90
 Y_max = Y_max * 1.10
 
 # ****************************************************************** Title *****
-set title "Temperature"
+set title "Temperature (DS18B20)"
 #"-".utc_offset."-"
 
 # ***************************************************************** X-axis *****
@@ -65,4 +65,5 @@ set object 2 rect fc rgb "#ffffff" fillstyle solid 1.0 noborder
 set output ofname
 
 # ***** PLOT *****
-plot ifname  using ($2+utc_offset):3 title " Temperature [degC]" with points pt 5 ps 0.1 fc rgb "#ccbb0000" \
+plot ifname \
+      using ($2+utc_offset):3 title " Temperature [degC]" with points pt 5 ps 0.1 fc rgb "#ccbb0000" \
