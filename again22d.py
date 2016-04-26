@@ -105,7 +105,7 @@ class MyDaemon(Daemon):
 def read_raw(homedir):
   cmnd = [homedir + '/bin/DHTXXD', '-g18']
   syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
-  cmnd = subprocess.Popen(cmnd, stdout=subprocess.PIPE).stdout.read()
+  cmnd = subprocess.check_output(cmnd)
   syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
   return cmnd
 
