@@ -4,7 +4,7 @@
 # uses moving averages
 
 # Wiring :
-# Sensor pin       : R-Pi print
+# Sensor pin       : R-Pi B+ pin
 # =================:==============
 # VIN   (red)      = 01  - 3v3
 # Data  (yellow)   = 07  - GPIO04
@@ -121,11 +121,10 @@ def do_work():
 
 def do_report(result, flock, fdata):
   # Get the time and date in human-readable form and UN*X-epoch...
-  outDate = time.strftime('%Y-%m-%dT%H:%M:%S')
+  outDate  = time.strftime('%Y-%m-%dT%H:%M:%S')
   outEpoch = int(time.strftime('%s'))
   # round to current minute to ease database JOINs
   outEpoch = outEpoch - (outEpoch % 60)
-  # fresult = ', '.join(map(str, result))
   lock(flock)
   with open(fdata, 'a') as f:
     f.write('{0}, {1}, {2}\n'.format(outDate, outEpoch, result))

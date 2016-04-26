@@ -4,7 +4,7 @@
 # uses moving averages
 
 # Wiring (facing frontside of DHT22, left to right):
-# Sensor pin       : R-Pi print
+# Sensor pin       : R-Pi B+ pin
 # =================:==============
 # PWR              = 01  - 3v3
 # data (digital)   = 12  - GPIO18 & R=4k7 > 3v3
@@ -80,9 +80,11 @@ class MyDaemon(Daemon):
 
         # report sample average
         if (startTime % reportTime < sampleTime):
-          somma = map(sum, zip(*data))
-          averages = [format(sm / len(data), '.2f') for sm in somma]
-
+          somma       = map(sum, zip(*data))
+          # not all entries should be float
+          # 0.37, 0.18, 0.17, 4, 143, 32147, 3, 4, 93, 0, 0
+          averages    = [format(sm / len(data), '.2f') for sm in somma]
+          # averages = map(float, averages)
           # averages  = format(sum(data[:]) / len(data), '.3f')
           syslog_trace("Averages : {0}".format(averages),  False, DEBUG)
           do_report(averages, flock, fdata)
@@ -126,11 +128,11 @@ def do_work(homedir):
 
 def do_report(result, flock, fdata):
   # Get the time and date in human-readable form and UN*X-epoch...
-  outDate = time.strftime('%Y-%m-%dT%H:%M:%S')
+  outDate  = time.strftime('%Y-%m-%dT%H:%M:%S')
   outEpoch = int(time.strftime('%s'))
   # round to current minute to ease database JOINs
   outEpoch = outEpoch - (outEpoch % 60)
-  # fresult = ', '.join(map(str, result))
+  result   = ', '.join(map(str, result))
   lock(flock)
   with open(fdata, 'a') as f:
     f.write('{0}, {1}, {2}\n'.format(outDate, outEpoch, result))
