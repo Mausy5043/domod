@@ -103,16 +103,13 @@ def read_temp_raw():
   lines = "NOPE"
   if not(os.path.isfile(OWfile)):
     syslog_trace("1-wire sensor not available", syslog.LOG_ALERT, DEBUG)
-    # Wait a while to see if 1-wire returns.
-    # If it doesn't return we'll abort in open()
-    time.sleep(10)
   else:
     with open(OWfile, 'r') as f:
       lines = f.readlines()
   return lines
 
 def do_work():
-  T0 = None
+  T = T0 = None
 
   lines = read_temp_raw()
   if lines[0].strip()[-3:] == 'YES':
