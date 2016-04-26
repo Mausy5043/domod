@@ -97,5 +97,7 @@ pushd "$HOME/domod"
       eval "./again$daemon"d.py start
     fi
   done
-
+  pushd DHTXXD
+    gcc -Wall -pthread -o DHTXXD test_DHTXXD.c DHTXXD.c -lpigpiod_if2
+  popd
 popd
