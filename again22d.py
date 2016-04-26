@@ -73,7 +73,7 @@ class MyDaemon(Daemon):
         result      = do_work(home).split(',')
         syslog_trace("Result   : {0}".format(result), False, DEBUG)
 
-        data.append(float(result))
+        data.append(map(float, result))
         if (len(data) > samples):
           data.pop(0)
         syslog_trace("Data     : {0}".format(data),   False, DEBUG)
@@ -101,7 +101,7 @@ class MyDaemon(Daemon):
 
 
 def read_raw(homedir):
-  cmnd = homedir + '/' + MYAPP + '/DHTXXD/DHTXXD -g18'
+  cmnd = [homedir + '/' + MYAPP + '/DHTXXD/DHTXXD', '-g18']
   syslog_trace("...:  {0}.".format(cmnd), False, DEBUG)
   cmnd = subprocess.Popen(cmnd, stdout=subprocess.PIPE).stdout.read()
   syslog_trace("...:  {0}.".format(cmnd), False, DEBUG)
@@ -110,7 +110,7 @@ def read_raw(homedir):
 def do_work(homedir):
   T0 = H0 = None
 
-  line = read_raw(homedir).strip()
+  line = read_raw(homedir).strip().split()
 
   if line[0] == '0':
     T0 = float(line[1])
