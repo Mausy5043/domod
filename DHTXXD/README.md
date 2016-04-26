@@ -1,14 +1,16 @@
+# DHTXXD
+
 source: http://abyz.co.uk/rpi/pigpio/code/DHTXXD.zip
 
-REQUIRES
+## Requires
 
 One or more DHT11/DHT21/DHT22/DHT33/DHT44.
 
-TO BUILD
+## Building
 
 gcc -Wall -pthread -o DHTXXD test_DHTXXD.c DHTXXD.c -lpigpiod_if2
 
-TO RUN
+## Running
 
 ./DHTXXD -g17 # one reading from DHT connected to GPIO 17
 
