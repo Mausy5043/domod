@@ -81,7 +81,7 @@ class MyDaemon(Daemon):
         # report sample average
         if (startTime % reportTime < sampleTime):
           somma = map(sum, zip(*data))
-          averages = [format(sm / len(data), '.3f') for sm in somma]
+          averages = [format(sm / len(data), '.2f') for sm in somma]
 
           # averages  = format(sum(data[:]) / len(data), '.3f')
           syslog_trace("Averages : {0}".format(averages),  False, DEBUG)
