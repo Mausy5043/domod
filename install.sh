@@ -23,7 +23,13 @@ pushd "$HOME/domod"
   echo "$MINIT  * *   *   *   $ME    $HOME/domod/update.sh 2>&1 | logger -p info -t domod" | sudo tee --append /etc/cron.d/domod
   # @reboot we allow for 120s for the WiFi to come up:
   echo "@reboot               $ME    sleep 120; $HOME/domod/update.sh 2>&1 | logger -p info -t domod" | sudo tee --append /etc/cron.d/domod
+  # ref: http://abyz.co.uk/rpi/pigpio/examples.html#pdif2_DHTXXD
+  pushd DHTXXD
+    gcc -Wall -pthread -o DHTXXD test_DHTXXD.c DHTXXD.c -lpigpiod_if2
 
+    sudo pigpiod
+    ./DHTXXD -g18
+  popd
 popd
 
 echo -n "Finished installation of DOMOD on "; date

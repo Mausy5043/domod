@@ -1,3 +1,5 @@
+source: http://abyz.co.uk/rpi/pigpio/code/DHTXXD.zip
+
 REQUIRES
 
 One or more DHT11/DHT21/DHT22/DHT33/DHT44.
@@ -21,4 +23,3 @@ and the last good read of temperature and humidity will be returned.
 #define DHT_BAD_CHECKSUM 1
 #define DHT_BAD_DATA     2
 #define DHT_TIMEOUT      3
-
