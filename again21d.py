@@ -73,17 +73,18 @@ class MyDaemon(Daemon):
 
         result      = do_work()
         syslog_trace("Result   : {0}".format(result), False, DEBUG)
+        if (result is not None):
+          data.append(float(result))
+          if (len(data) > samples):
+            data.pop(0)
+          syslog_trace("Data     : {0}".format(data),   False, DEBUG)
 
-        data.append(float(result))
-        if (len(data) > samples):
-          data.pop(0)
-        syslog_trace("Data     : {0}".format(data),   False, DEBUG)
-
-        # report sample average
-        if (startTime % reportTime < sampleTime):
-          averages  = format(sum(data[:]) / len(data), '.2f')
-          syslog_trace("Averages : {0}".format(averages),  False, DEBUG)
-          do_report(averages, flock, fdata)
+          # report sample average
+          if (startTime % reportTime < sampleTime):
+            averages  = format(sum(data[:]) / len(data), '.2f')
+            syslog_trace("Averages : {0}".format(averages),  False, DEBUG)
+            do_report(averages, flock, fdata)
+        # endif result not None
 
         waitTime    = sampleTime - (time.time() - startTime) - (startTime % sampleTime)
         if (waitTime > 0):
@@ -99,13 +100,15 @@ class MyDaemon(Daemon):
 
 
 def read_temp_raw():
+  lines = "NOPE"
   if not(os.path.isfile(OWfile)):
     syslog_trace("1-wire sensor not available", syslog.LOG_ALERT, DEBUG)
     # Wait a while to see if 1-wire returns.
     # If it doesn't return we'll abort in open()
     time.sleep(10)
-  with open(OWfile, 'r') as f:
-    lines = f.readlines()
+  else:
+    with open(OWfile, 'r') as f:
+      lines = f.readlines()
   return lines
 
 def do_work():
