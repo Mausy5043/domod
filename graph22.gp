@@ -71,5 +71,5 @@ set output ofname
 
 # ***** PLOT *****
 plot ifname \
-      using ($2+utc_offset):3 title " Humidity [%]"      with points pt 5 ps 0.2\
+      using ($2+utc_offset):3 title " Humidity [%]"      with points pt 5 ps 0.2 \
   ,'' using ($2+utc_offset):4 title " Temperature [degC]" axes x1y2  with dots\
