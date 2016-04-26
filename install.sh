@@ -20,7 +20,7 @@ pushd "$HOME/domod"
   sudo mkdir -p /etc/cron.d
   # Set up some cronjobs
   echo "# m h dom mon dow user  command" | sudo tee /etc/cron.d/domod
-  echo "$MINIT  * *   *   *   $ME    $HOME/domod/update.sh 2>&1 | logger -p info -t domod" | sudo tee --append /etc/cron.d/domod
+  echo "$minit  * *   *   *   $ME    $HOME/domod/update.sh 2>&1 | logger -p info -t domod" | sudo tee --append /etc/cron.d/domod
   # @reboot we allow for 120s for the WiFi to come up:
   echo "@reboot               $ME    sleep 120; $HOME/domod/update.sh 2>&1 | logger -p info -t domod" | sudo tee --append /etc/cron.d/domod
   # ref: http://abyz.co.uk/rpi/pigpio/examples.html#pdif2_DHTXXD
