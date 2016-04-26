@@ -59,16 +59,16 @@ def do_mv_data(flock, homedir, script):
   t0 = time.time()
 
   cmnd = homedir + '/' + MYAPP + '/graphday.sh'
-  syslog_trace("...:  {0}.".format(cmnd), False, DEBUG)
+  syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
   cmnd = subprocess.Popen(cmnd, stdout=subprocess.PIPE).stdout.read()
-  syslog_trace("...:  {0}.".format(cmnd), False, DEBUG)
+  syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
 
   if os.path.isfile('/tmp/' + MYAPP + '/site/default.md'):
     write_lftp(script)
     cmnd = ['lftp', '-f', script]
-    syslog_trace("...:  {0}.".format(cmnd), False, DEBUG)
+    syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
     cmnd = subprocess.Popen(cmnd, stdout=subprocess.PIPE).stdout.read()
-    syslog_trace("...:  {0}.".format(cmnd), False, DEBUG)
+    syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
 
   waitTime = 15 - (time.time() - t0)
   if waitTime > 0:

@@ -52,7 +52,7 @@ set yrange [ Y_min : Y_max ]
 # **************************************************************** Y2-axis *****
 set y2label "Temperature [degC]"
 set autoscale y2
-set yrange [ Y2_min : Y2_max ]
+set y2range [ Y2_min : Y2_max ]
 set y2tics border
 
 # ***************************************************************** Legend *****
