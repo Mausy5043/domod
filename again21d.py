@@ -81,7 +81,7 @@ class MyDaemon(Daemon):
 
         # report sample average
         if (startTime % reportTime < sampleTime):
-          averages  = format(sum(data[:]) / len(data), '.3f')
+          averages  = format(sum(data[:]) / len(data), '.2f')
           syslog_trace("Averages : {0}".format(averages),  False, DEBUG)
           do_report(averages, flock, fdata)
 
@@ -128,7 +128,7 @@ def do_report(result, flock, fdata):
   # fresult = ', '.join(map(str, result))
   lock(flock)
   with open(fdata, 'a') as f:
-    f.write('{0}, {1}, {2:0.2f}\n'.format(outDate, outEpoch, float(result)))
+    f.write('{0}, {1}, {2}\n'.format(outDate, outEpoch, result))
   unlock(flock)
 
 def lock(fname):
