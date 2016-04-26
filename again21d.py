@@ -99,6 +99,10 @@ class MyDaemon(Daemon):
 
 
 def read_temp_raw():
+  if not(os.path.isfile(OWfile)):
+    # Wait a while to see if 1-wire returns. 
+    # If it doesn't return we'll abort in open()
+    time.sleep(10)
   with open(OWfile, 'r') as f:
     lines = f.readlines()
   return lines
