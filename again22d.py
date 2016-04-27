@@ -110,7 +110,7 @@ def read_raw(homedir):
   return cmnd
 
 def do_work(homedir):
-  T0 = H0 = None
+  T = T0 = H = H0 = None
 
   line = read_raw(homedir).strip().split()
 
