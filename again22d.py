@@ -70,9 +70,10 @@ class MyDaemon(Daemon):
       try:
         startTime   = time.time()
 
-        result      = do_work(home).split(',')
+        state, result      = do_work(home)
         syslog_trace("Result   : {0}".format(result), False, DEBUG)
-        if (result[0] is not None) and (result[1] is not None):
+        if (state == 0):
+          result = result.split(',')
           data.append(map(float, result))
           if (len(data) > samples):
             data.pop(0)
@@ -115,10 +116,10 @@ def do_work(homedir):
 
   line = read_raw(homedir).strip().split()
 
-  if line[0] == '0':
-    T0 = float(line[1])
-    H0 = float(line[2])
-  else:
+  state = int(line[0])
+  T0 = float(line[1])
+  H0 = float(line[2])
+  if line[0] != '0':
     syslog_trace("DHTXXD error {0}".format(line), syslog.LOG_ALERT, DEBUG)
 
   if H0 is not None and T0 is not None:
@@ -127,7 +128,7 @@ def do_work(homedir):
     syslog_trace("  T0 = {0:0.1f}*C        T = {1:0.1f}degC".format(T0, T), False, DEBUG)
     syslog_trace("  H0 = {0:0.1f}*%        H = {1:0.1f}%".format(H0, H), False, DEBUG)
 
-  return '{0}, {1}'.format(H, T)
+  return state, '{0}, {1}'.format(H, T)
 
 def do_report(result, flock, fdata):
   # Get the time and date in human-readable form and UN*X-epoch...
