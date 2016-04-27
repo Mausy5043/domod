@@ -72,7 +72,7 @@ class MyDaemon(Daemon):
 
         result      = do_work(home).split(',')
         syslog_trace("Result   : {0}".format(result), False, DEBUG)
-        if (result is not [None, None]):
+        if (result[0] is not None) and (result[1] is not None):
           data.append(map(float, result))
           if (len(data) > samples):
             data.pop(0)
@@ -89,7 +89,7 @@ class MyDaemon(Daemon):
             syslog_trace("Averages : {0}".format(averages),  False, DEBUG)
             do_report(averages, flock, fdata)
         # endif result not None
-
+        time.sleep(3.5)  # at least wait 3 seconds between meaurements
         waitTime    = sampleTime - (time.time() - startTime) - (startTime % sampleTime)
         if (waitTime > 0):
           syslog_trace("Waiting  : {0}s".format(waitTime), False, DEBUG)
