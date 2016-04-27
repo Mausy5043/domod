@@ -7,19 +7,18 @@ This page is all about the again.
 
 <style type="text/css">
   .zoomer {
-    border: none;
-    margin: 0 auto;
-    transition: all 0.5s ease;
+    border:             none;
+    margin:             0 auto;
+    transition:         all 0.5s ease;
     -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -ms-transition: all 0.5s ease;
+    -moz-transition:    all 0.5s ease;
+    -ms-transition:     all 0.5s ease;
   }
-
   .zoomer:hover {
-    -webkit-transform: scale(1.5);
-    -moz-transform: scale(1.5);
-    -o-transform: scale(1.5);
-    transform: scale(1.5);
+    transform:          scale(1.3);
+    -webkit-transform:  scale(1.3);
+    -moz-transform:     scale(1.3);
+    -o-transform:       scale(1.3);
   }
 </style>
 
