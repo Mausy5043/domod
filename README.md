@@ -1,5 +1,6 @@
 # domod
-Platform independent domotica data gatherer
+Platform independent domotica data gatherer. Known supported hardware:
+ - Raspberry Pi 1B+
 
 # Installing
 
