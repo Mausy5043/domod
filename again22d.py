@@ -120,7 +120,7 @@ def do_work(homedir):
   T0 = float(line[1])
   H0 = float(line[2])
   if line[0] != '0':
-    syslog_trace("DHTXXD error {0}".format(line), syslog.LOG_ALERT, DEBUG)
+    syslog_trace("DHTXXD error {0}".format(line), syslog.LOG_ERR, DEBUG)
 
   if H0 is not None and T0 is not None:
     H = H0 * DHT22H_gain + DHT22H_offset

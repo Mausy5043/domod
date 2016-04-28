@@ -102,7 +102,7 @@ class MyDaemon(Daemon):
 def read_temp_raw():
   lines = "NOPE"
   if not(os.path.isfile(OWfile)):
-    syslog_trace("1-wire sensor not available", syslog.LOG_ALERT, DEBUG)
+    syslog_trace("1-wire sensor not available", syslog.LOG_ERR, DEBUG)
   else:
     with open(OWfile, 'r') as f:
       lines = f.readlines()
