@@ -334,7 +334,7 @@ void DHTXXD_manual_read(DHTXXD_t *self)
 
    /* timeout if no new reading */
 
-   for (i=0; i<5; i++) /* 0.25 seconds */
+   for (i=0; i<40; i++) /* 2.00 seconds */
    {
       time_sleep(0.05);
       if (self->_new_reading) break;
@@ -365,4 +365,3 @@ void DHTXXD_auto_read(DHTXXD_t *self, float seconds)
 
    if (seconds > 0.0) self->_pth = start_thread(pthTriggerThread, self);
 }
-
