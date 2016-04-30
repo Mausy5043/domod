@@ -92,10 +92,10 @@ class MyDaemon(Daemon):
           syslog_trace("................................", False, DEBUG)
           time.sleep(waitTime)
       except Exception as e:
-        syslog_trace("Unexpected error in run()", syslog.LOG_ALERT, DEBUG)
-        syslog_trace("e.message : {0}".format(e.message), syslog.LOG_ALERT, DEBUG)
-        syslog_trace("e.__doc__ : {0}".format(e.__doc__), syslog.LOG_ALERT, DEBUG)
-        syslog_trace(traceback.format_exc(), syslog.LOG_ALERT, DEBUG)
+        syslog_trace("Unexpected error in run()", syslog.LOG_CRIT, DEBUG)
+        syslog_trace("e.message : {0}".format(e.message), syslog.LOG_CRIT, DEBUG)
+        syslog_trace("e.__doc__ : {0}".format(e.__doc__), syslog.LOG_CRIT, DEBUG)
+        syslog_trace(traceback.format_exc(), syslog.LOG_CRIT, DEBUG)
         raise
 
 

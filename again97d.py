@@ -35,13 +35,13 @@ class MyDaemon(Daemon):
         logtext = "{0} : {1}".format("Attached to MySQL server", versql)
         syslog.syslog(syslog.LOG_INFO, logtext)
     except mdb.Error as e:
-      syslog_trace("Unexpected MySQL error in run(init)", syslog.LOG_ALERT, DEBUG)
-      syslog_trace("e.message : {0}".format(e.message), syslog.LOG_ALERT, DEBUG)
-      syslog_trace("e.__doc__ : {0}".format(e.__doc__), syslog.LOG_ALERT, DEBUG)
-      syslog_trace(traceback.format_exc(), syslog.LOG_ALERT, DEBUG)
+      syslog_trace("Unexpected MySQL error in run(init)", syslog.LOG_CRIT, DEBUG)
+      syslog_trace("e.message : {0}".format(e.message), syslog.LOG_CRIT, DEBUG)
+      syslog_trace("e.__doc__ : {0}".format(e.__doc__), syslog.LOG_CRIT, DEBUG)
+      syslog_trace(traceback.format_exc(), syslog.LOG_CRIT, DEBUG)
       if consql.open:    # attempt to close connection to MySQLdb
         consql.close()
-        syslog_trace(" ** Closed MySQL connection in run() **", syslog.LOG_ALERT, DEBUG)
+        syslog_trace(" ** Closed MySQL connection in run() **", syslog.LOG_CRIT, DEBUG)
       raise
 
     iniconf         = ConfigParser.ConfigParser()
@@ -71,14 +71,14 @@ class MyDaemon(Daemon):
           syslog_trace("................................", False, DEBUG)
           time.sleep(waitTime)
       except Exception as e:
-        syslog_trace("Unexpected error in run()", syslog.LOG_ALERT, DEBUG)
-        syslog_trace("e.message : {0}".format(e.message), syslog.LOG_ALERT, DEBUG)
-        syslog_trace("e.__doc__ : {0}".format(e.__doc__), syslog.LOG_ALERT, DEBUG)
-        syslog_trace(traceback.format_exc(), syslog.LOG_ALERT, DEBUG)
+        syslog_trace("Unexpected error in run()", syslog.LOG_CRIT, DEBUG)
+        syslog_trace("e.message : {0}".format(e.message), syslog.LOG_CRIT, DEBUG)
+        syslog_trace("e.__doc__ : {0}".format(e.__doc__), syslog.LOG_CRIT, DEBUG)
+        syslog_trace(traceback.format_exc(), syslog.LOG_CRIT, DEBUG)
         # attempt to close connection to MySQLdb
         if consql.open:
           consql.close()
-          syslog_trace(" *** Closed MySQL connection in run() ***", syslog.LOG_ALERT, DEBUG)
+          syslog_trace(" *** Closed MySQL connection in run() ***", syslog.LOG_CRIT, DEBUG)
         raise
 
 def cat(filename):
@@ -98,11 +98,11 @@ def do_writesample(cnsql, cmd, sample):
     cnsql.commit()
     cursql.close()
   except mdb.IntegrityError as e:
-    syslog_trace("e.message : {0}".format(e.message), syslog.LOG_ALERT, DEBUG)
+    syslog_trace("e.message : {0}".format(e.message), syslog.LOG_CRIT, DEBUG)
     syslog_trace("e.__doc__ : {0}".format(e.__doc__), syslog.LOG_INFO,  DEBUG)
     if cursql:
       cursql.close()
-      syslog_trace(" *** Closed MySQL connection in do_writesample() ***", syslog.LOG_ALERT, DEBUG)
+      syslog_trace(" *** Closed MySQL connection in do_writesample() ***", syslog.LOG_CRIT, DEBUG)
       syslog_trace(" Not added to MySQLdb: {0}".format(dat), syslog.LOG_DEBUG, DEBUG)
     pass
 
