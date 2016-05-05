@@ -30,7 +30,7 @@ class MyDaemon(Daemon):
     reportTime      = iniconf.getint(inisection, "reporttime")
     samplesperCycle = iniconf.getint(inisection, "samplespercycle")
     flock           = iniconf.get(inisection, "lockfile")
-    fdata           = iniconf.get(inisection, "resultfile")
+    fdata           = iniconf.get(inisection, "markdown")
     sampleTime      = reportTime/samplesperCycle        # time [s] between samples
 
     while True:
