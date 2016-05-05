@@ -32,7 +32,9 @@ class MyDaemon(Daemon):
     reportTime      = iniconf.getint(inisection, "reporttime")
     samplesperCycle = iniconf.getint(inisection, "samplespercycle")
     flock           = iniconf.get(inisection, "lockfile")
+
     scriptname      = iniconf.get(inisection, "lftpscript")
+
     sampleTime      = reportTime/samplesperCycle         # time [s] between samples
 
     while True:
@@ -57,6 +59,8 @@ def do_mv_data(flock, homedir, script):
   # wait 15 seconds for processes to finish
   unlock(flock)  # remove stale lock
   t0 = time.time()
+
+  getsqldata(homedir)
 
   cmnd = homedir + '/' + MYAPP + '/graphday.sh'
   syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
@@ -88,22 +92,40 @@ def do_mv_data(flock, homedir, script):
     syslog_trace("...moving data {0}".format(fname), False, DEBUG)
     shutil.move(fname, fname+".DEAD")
 
-  for fname in glob.glob(r'/tmp/' + MYAPP + '/*.png'):
-    syslog_trace("...moving graph {0}".format(fname), False, DEBUG)
-    shutil.move(fname, fname+".DEAD")
+  # for fname in glob.glob(r'/tmp/' + MYAPP + '/*.png'):
+  #  syslog_trace("...moving graph {0}".format(fname), False, DEBUG)
+  #  shutil.move(fname, fname+".DEAD")
 
   unlock(flock)
 
-def write_lftp(script):
+def getsqldata(homedir):
+  minit = int(time.strftime('%M'))
+  nowur = int(time.strftime('%H'))
+  # data of last hour is updated every minute
+  cmnd = homedir + '/' + MYAPP + '/getsqlhour.sh'
+  syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
+  # cmnd = subprocess.call(cmnd)
+  syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
+  # data of the last day is updated every 30 minutes
+  if (minit % 30 == 0):
+    cmnd = homedir + '/' + MYAPP + '/getsqlday.sh'
+    syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
+    # cmnd = subprocess.call(cmnd)
+    syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
+    # dat of the last week is updated every 4 hours
+    if (nowur % 4 == 0):
+      cmnd = homedir + '/' + MYAPP + '/getsqlweek.sh'
+      syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
+      # cmnd = subprocess.call(cmnd)
+      syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
 
+def write_lftp(script):
   with open(script, 'w') as f:
     f.write('# DO NOT EDIT\n')
     f.write('# This file is created automatically by ' + MYAPP + '\n\n')
     f.write('# lftp script\n\n')
     f.write('open hendrixnet.nl;\n')
     f.write('cd /public_html/grav/user/pages/03.again/;\n')
-    # f.write('mkdir -p -f _' + NODE + ' ;\n')
-    # f.write('cd _' + NODE + ' ;\n')
     f.write('mirror --reverse --delete --verbose=3 -c /tmp/' + MYAPP + '/site/ . ;\n')
     f.write('\n')
 
