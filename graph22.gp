@@ -1,75 +1,183 @@
 #!/usr/bin/env gnuplot
 
-# graph of temperature
+# graph of humidity (and temperature)
 
 # datafile
-ifname = "/tmp/sql22.csv"
-ofname = "/tmp/domod/site/img/day22.png"
+ifnameh = "/tmp/sql22h.csv"
+ifnamed = "/tmp/sql22d.csv"
+ifnamew = "/tmp/sql22w.csv"
+set output ofname = "/tmp/domod/site/img/day22.png"
 
 # ******************************************************* General settings *****
-set terminal png truecolor enhanced font "Vera" 9 size 1040,320
+set terminal png truecolor enhanced font "Vera" 9 size 1280,320
 set datafile separator ';'
 set datafile missing "NaN"    # Ignore missing values
 set grid
 tz_offset = utc_offset / 3600 # GNUplot only works with UTC. Need to compensate
                               # for timezone ourselves.
-set timestamp 'created: %Y-%m-%d %H:%M' bottom font "Vera,6"
+# Positions of split between graphs
+LMPOS = 0.40
+MRPOS = 0.75
 
-# ************************************************************* Statistics *****
+# ********************************************************* Statistics (R) *****
 # stats to be calculated here of column 2 (UX-epoch)
-stats ifname using 2 name "X" nooutput
+stats ifnameh using 2 name "X" nooutput
 
-X_min = X_min + utc_offset - 946684800
-X_max = X_max + utc_offset - 946684800
+Xh_min = X_min + utc_offset - 946684800
+Xh_max = X_max + utc_offset - 946684800
 
-# stats to be calculated here for Y-axis
-stats ifname using 3 name "Y" nooutput
-Y_min = Y_min * 0.90
-Y_max = Y_max * 1.10
+# stats to be calculated here for Y-axes
+#stats ifnameh using 4 name "Y" nooutput
+#Yh_min = Y_min * 0.90
+#Yh_max = Y_max * 1.10
 
-# stats to be calculated here for Y-axis
-stats ifname using 4 name "Y2" nooutput
-Y2_min = Y2_min * 0.90
-Y2_max = Y2_max * 1.10
-# ****************************************************************** Title *****
-set title "Humidity (DHT22)"
-#"-".utc_offset."-"
+# ********************************************************* Statistics (M) *****
+# stats to be calculated here of column 2 (UX-epoch)
+stats ifnamed using 2 name "X" nooutput
+
+Xd_min = X_min + utc_offset - 946684800
+Xd_max = X_max + utc_offset - 946684800
+
+# stats to be calculated here for Y-axes
+#stats ifnamed using 4 name "Y" nooutput
+#Yd_min = Y_min * 0.90
+#Yd_max = Y_max * 1.10
+
+# ********************************************************* Statistics (L) *****
+# stats to be calculated here of column 2 (UX-epoch)
+stats ifnamew using 2 name "X" nooutput
+Xw_min = X_min + utc_offset - 946684800
+Xw_max = X_max + utc_offset - 946684800
+
+# stats for Y-axis
+stats ifnamew using 3 name "Y" nooutput
+Yw_min = Y_min -1
+Yw_max = Y_max +1
+
+# stats for Y2-axis
+stats ifnamew using 4 name "Y2" nooutput
+Y2w_min = Y2_min -1
+Y2w_max = Y2_max +1
+
+set multiplot layout 1, 3 title "Humidity & Temperature (DHT22) -=- ".strftime("%Y-%m-%d %H:%M", time(0))
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#                                                       LEFT PLOT: past week
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 # ***************************************************************** X-axis *****
-set xlabel "Date/Time"       # X-axis label
+set xlabel "past week"       # X-axis label
 set xdata time               # Data on X-axis should be interpreted as time
 set timefmt "%s"             # Time in log-file is given in Unix format
-set format x "%R"            # Display time in 24 hour notation on the X axis
-set xtics rotate by 40 right
-set xrange [ X_min : X_max ]
+set format x "%a %d"            # Display time in 24 hour notation on the X axis
+set xrange [ Xw_min : Xw_max ]
 
 # ***************************************************************** Y-axis *****
 set ylabel "Humidity [%]"
-#set yrange [10:20]
-set autoscale y
-set yrange [ Y_min : Y_max ]
+set yrange [ Yw_min : Yw_max ]
 
 # **************************************************************** Y2-axis *****
-set y2label "Temperature [degC]"
-set autoscale y2
+set y2label " "
+set y2tics format " "``
 set y2range [ Y2_min : Y2_max ]
-set y2tics border
 
 # ***************************************************************** Legend *****
-set key inside top left vertical box
-set key samplen .5
+set key inside top left horizontal box
+set key samplen 1
 set key reverse Left
 
 # ***************************************************************** Output *****
 set arrow from graph 0,graph 0 to graph 0,graph 1 nohead lc rgb "red" front
-set arrow from graph 1,graph 0 to graph 1,graph 1 nohead lc rgb "green" front
-set object 1 rect from screen 0,0 to screen 1,1 behind
-set object 1 rect fc rgb "#eeeeee" fillstyle solid 1.0 noborder
-set object 2 rect from graph 0,0 to graph 1,1 behind
-set object 2 rect fc rgb "#ffffff" fillstyle solid 1.0 noborder
-set output ofname
+# set arrow from graph 1,graph 0 to graph 1,graph 1 nohead lc rgb "green" front
+#set object 1 rect from screen 0,0 to screen 1,1 behind
+#set object 1 rect fc rgb "#eeeeee" fillstyle solid 1.0 noborder
+#set object 2 rect from graph 0,0 to graph 1,1 behind
+#set object 2 rect fc rgb "#ffffff" fillstyle solid 1.0 noborder
+set rmargin at screen LMPOS
 
 # ***** PLOT *****
-plot ifname \
-      using ($2+utc_offset):3 title " Humidity [%]"      with points pt 5 ps 0.2 \
-  ,'' using ($2+utc_offset):4 title " Temperature [degC]" axes x1y2  with dots\
+plot ifnamew \
+      using ($2+utc_offset):3 title " Humidity [%]"      with points pt 5 ps 0.2 fc rgb "#ccbb0000" \
+  ,'' using ($2+utc_offset):4 title " Temperature [degC]" axes x1y2  with dots
+
+
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#                                                     MIDDLE PLOT:  past day
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+# ***************************************************************** X-axis *****
+set xlabel "past day"       # X-axis label
+set xdata time               # Data on X-axis should be interpreted as time
+set timefmt "%s"             # Time in log-file is given in Unix format
+set format x "%R"            # Display time in 24 hour notation on the X axis
+set xrange [ Xd_min : Xd_max ]
+
+# ***************************************************************** Y-axis *****
+set ylabel " "
+set ytics format " "
+set yrange [ Yw_min : Yw_max ]
+
+# **************************************************************** Y2-axis *****
+set y2label " "
+set y2tics format " "
+set y2range [ Y2_min : Y2_max ]
+
+# ***************************************************************** Legend *****
+unset key
+
+# ***************************************************************** Output *****
+set lmargin at screen LMPOS+0.001
+set rmargin at screen MRPOS
+
+# ***** PLOT *****
+plot ifnamed \
+      using ($2+utc_offset):3 with points pt 5 ps 0.2 fc rgb "#ccbb0000" \
+  ,'' using ($2+utc_offset):4 axes x1y2  with dots
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#                                                      RIGHT PLOT: past hour
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+# ***************************************************************** X-axis *****
+set xlabel "past hour"       # X-axis label
+set xdata time               # Data on X-axis should be interpreted as time
+set timefmt "%s"             # Time in log-file is given in Unix format
+set format x "%R"            # Display time in 24 hour notation on the X axis
+set xrange [ Xh_min : Xh_max ]
+
+# ***************************************************************** Y-axis *****
+set ylabel " "
+set ytics format " "
+set yrange [ Yw_min : Yw_max ]
+
+# **************************************************************** Y2-axis *****
+set y2label "Temperature [degC]"
+set y2range [ Y2_min : Y2_max ]
+set y2tics border
+
+# ***************************************************************** Legend *****
+unset key
+
+# ***************************************************************** Output *****
+set arrow from graph 1,graph 0 to graph 1,graph 1 nohead lc rgb "green" front
+set lmargin at screen MRPOS+0.001
+set rmargin -1
+
+# ***** PLOT *****
+plot ifnameh \
+      using ($2+utc_offset):3 with points pt 5 ps 0.2 fc rgb "#ccbb0000" \
+  ,'' using ($2+utc_offset):4 axes x1y2  with dots
+
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+#                                                                 FINALIZING
+# %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+unset multiplot
