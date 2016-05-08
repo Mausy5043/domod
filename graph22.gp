@@ -59,7 +59,7 @@ stats ifnamew using 4 name "Y2" nooutput
 Y2w_min = Y2_min -1
 Y2w_max = Y2_max +1
 
-set multiplot layout 1, 3 title "Humidity & Temperature (DHT22) -=- ".strftime("%Y-%m-%d %H:%M", time(0))
+set multiplot layout 1, 3 title "Humidity & Temperature (DHT22) -=- ".strftime("%Y-%m-%dT%H:%M", time(0+utc_offset))
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -160,7 +160,7 @@ set yrange [ Yw_min : Yw_max ]
 
 # **************************************************************** Y2-axis *****
 set y2label "Temperature [degC]"
-set y2tics format "%2.1f"
+set y2tics format "%.0f"
 set y2range [ Y2_min : Y2_max ]
 set y2tics border
 
