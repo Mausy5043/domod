@@ -13,6 +13,7 @@ import time
 import traceback
 
 from libdaemon import Daemon
+from random import randrange as rnd
 
 # constants
 DEBUG       = False
@@ -20,6 +21,8 @@ IS_JOURNALD = os.path.isfile('/bin/journalctl')
 MYID        = filter(str.isdigit, os.path.realpath(__file__).split('/')[-1])
 MYAPP       = os.path.realpath(__file__).split('/')[-2]
 NODE        = os.uname()[1]
+SQLMNT      = rnd(0, 59)
+SQLHR       = rnd(0, 23)
 
 class MyDaemon(Daemon):
   def run(self):
@@ -36,6 +39,7 @@ class MyDaemon(Daemon):
     scriptname      = iniconf.get(inisection, "lftpscript")
 
     sampleTime      = reportTime/samplesperCycle         # time [s] between samples
+    getsqldata(home, True)
 
     while True:
       try:
@@ -60,9 +64,9 @@ def do_mv_data(flock, homedir, script):
   unlock(flock)  # remove stale lock
   t0 = time.time()
 
-  getsqldata(homedir)
+  getsqldata(homedir, False)
 
-  cmnd = homedir + '/' + MYAPP + '/graphday.sh'
+  cmnd = homedir + '/' + MYAPP + '/graphs.sh'
   syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
   cmnd = subprocess.check_output(cmnd)
   syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
@@ -98,26 +102,27 @@ def do_mv_data(flock, homedir, script):
 
   unlock(flock)
 
-def getsqldata(homedir):
+def getsqldata(homedir, nu):
   minit = int(time.strftime('%M'))
   nowur = int(time.strftime('%H'))
   # data of last hour is updated every minute
   cmnd = homedir + '/' + MYAPP + '/getsqlhour.sh'
   syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
-  # cmnd = subprocess.call(cmnd)
+  cmnd = subprocess.call(cmnd)
   syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
   # data of the last day is updated every 30 minutes
-  if (minit % 30 == 0):
+  if ((minit % 30) == (SQLMNT % 30)) or nu:
     cmnd = homedir + '/' + MYAPP + '/getsqlday.sh'
     syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
-    # cmnd = subprocess.call(cmnd)
+    cmnd = subprocess.call(cmnd)
     syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
     # dat of the last week is updated every 4 hours
-    if (nowur % 4 == 0):
+    if ((nowur % 4) == (SQLHR % 4)) or nu:
       cmnd = homedir + '/' + MYAPP + '/getsqlweek.sh'
       syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
-      # cmnd = subprocess.call(cmnd)
+      cmnd = subprocess.call(cmnd)
       syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
+
 
 def write_lftp(script):
   with open(script, 'w') as f:
