@@ -9,10 +9,10 @@ UTCSECONDS=$(date -d "$UTC" +%s)
 UTCOFFSET=$(($LOCALSECONDS-$UTCSECONDS))
 
 pushd $HOME/lnxdiagd >/dev/null
-  if [ $(cat /tmp/sql21d.csv | wc -l) -gt 30 ]; then
+  if [ $(cat /tmp/domod/mysql/sql21d.csv | wc -l) -gt 30 ]; then
     gnuplot -e "utc_offset='${UTCOFFSET}'" ./graph21.gp
   fi
-  if [ $(cat /tmp/sql22d.csv | wc -l) -gt 30 ]; then
+  if [ $(cat /tmp/domod/mysql/sql22d.csv | wc -l) -gt 30 ]; then
     gnuplot -e "utc_offset='${UTCOFFSET}'" ./graph22.gp
   fi
 popd >/dev/null
