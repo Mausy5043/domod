@@ -81,7 +81,7 @@ set yrange [ Yw_min : Yw_max ]
 
 # **************************************************************** Y2-axis *****
 set y2label " "
-set y2tics format " "``
+set y2tics format " "
 set y2range [ Y2_min : Y2_max ]
 
 # ***************************************************************** Legend *****
