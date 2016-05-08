@@ -16,7 +16,7 @@ fi
 interval="INTERVAL 25 HOUR "
 host=$(hostname)
 
-pushd $HOME/lnxdiagd >/dev/null
+pushd $HOME/domod >/dev/null
   mysql -h sql.lan --skip-column-names -e "USE domotica; SELECT * FROM ds18 where (sample_time >=NOW() - $interval);" | sed 's/\t/;/g;s/\n//g' > "$datastore/sql21d.csv"
   mysql -h sql.lan --skip-column-names -e "USE domotica; SELECT * FROM dht22 where (sample_time >=NOW() - $interval);" | sed 's/\t/;/g;s/\n//g' > "$datastore/sql22d.csv"
 
