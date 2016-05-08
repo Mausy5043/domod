@@ -101,7 +101,7 @@ set rmargin at screen LMPOS
 
 # ***** PLOT *****
 plot ifnamew \
-      using ($2+utc_offset):4 title " Temperature [degC]" axes x1y2  with points pt 5 ps 0.2 fc rgb "#cc99bb9" \
+      using ($2+utc_offset):4 title " Temperature [degC]" axes x1y2  with points pt 5 ps 0.2 fc rgb "#cc99bb99" \
   ,'' using ($2+utc_offset):3 title " Humidity [%]"      with points pt 5 ps 0.2 fc rgb "#ccbb0000" \
 
 
