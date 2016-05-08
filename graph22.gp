@@ -101,8 +101,8 @@ set rmargin at screen LMPOS
 
 # ***** PLOT *****
 plot ifnamew \
-      using ($2+utc_offset):3 title " Humidity [%]"      with points pt 5 ps 0.2 fc rgb "#ccbb0000" \
-  ,'' using ($2+utc_offset):4 title " Temperature [degC]" axes x1y2  with dots
+      using ($2+utc_offset):4 title " Temperature [degC]" axes x1y2  with points pt 5 ps 0.2 fc rgb "#cc99bb9"
+  ,'' using ($2+utc_offset):3 title " Humidity [%]"      with points pt 5 ps 0.2 fc rgb "#ccbb0000" \
 
 
 
@@ -139,8 +139,8 @@ set rmargin at screen MRPOS
 
 # ***** PLOT *****
 plot ifnamed \
-      using ($2+utc_offset):3 with points pt 5 ps 0.2 fc rgb "#ccbb0000" \
-  ,'' using ($2+utc_offset):4 axes x1y2  with dots
+      using ($2+utc_offset):4 axes x1y2 with points pt 5 ps 0.2 fc rgb "#cc99bb99" \
+  ,'' using ($2+utc_offset):3 with points pt 5 ps 0.2 fc rgb "#ccbb0000" \
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -177,8 +177,8 @@ set rmargin at screen RMARG
 
 # ***** PLOT *****
 plot ifnameh \
-      using ($2+utc_offset):3 with points pt 5 ps 0.2 fc rgb "#ccbb0000" \
-  ,'' using ($2+utc_offset):4 axes x1y2  with dots
+      using ($2+utc_offset):4 axes x1y2 with points pt 5 ps 0.2 fc rgb "#cc99bb99" \
+  ,'' using ($2+utc_offset):3 with points pt 5 ps 0.2 fc rgb "#ccbb0000" \
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #                                                                 FINALIZING
