@@ -16,8 +16,9 @@ set grid
 tz_offset = utc_offset / 3600 # GNUplot only works with UTC. Need to compensate
                               # for timezone ourselves.
 # Positions of split between graphs
-LMPOS = 0.40
-MRPOS = 0.75
+LMPOS = 0.36
+MRPOS = 0.73
+RMARG = 1.00
 
 # ********************************************************* Statistics (R) *****
 # stats to be calculated here of column 2 (UX-epoch)
@@ -171,7 +172,7 @@ unset key
 # ***************************************************************** Output *****
 set arrow from graph 1,graph 0 to graph 1,graph 1 nohead lc rgb "green" front
 set lmargin at screen MRPOS+0.001
-set rmargin -1
+set rmargin at screen RMARG
 
 # ***** PLOT *****
 plot ifnameh \

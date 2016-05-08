@@ -18,6 +18,7 @@ tz_offset = utc_offset / 3600 # GNUplot only works with UTC. Need to compensate
 # Positions of split between graphs
 LMPOS = 0.40
 MRPOS = 0.75
+RMARG = 0.93
 
 # ********************************************************* Statistics (R) *****
 # stats to be calculated here of column 2 (UX-epoch)
@@ -147,7 +148,7 @@ unset key
 
 # ***************************************************************** Output *****
 set lmargin at screen MRPOS+0.001
-set rmargin -1
+set rmargin at screen RMARG
 
 # ***** PLOT *****
 plot ifnameh \
