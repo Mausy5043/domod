@@ -27,7 +27,7 @@ Xh_min = X_min + utc_offset - 946684800
 Xh_max = X_max + utc_offset - 946684800
 
 # stats to be calculated here for Y-axes
-#stats ifnameh using 4 name "Y" nooutput
+#stats ifnameh using 3 name "Y" nooutput
 #Yh_min = Y_min * 0.90
 #Yh_max = Y_max * 1.10
 
@@ -39,7 +39,7 @@ Xd_min = X_min + utc_offset - 946684800
 Xd_max = X_max + utc_offset - 946684800
 
 # stats to be calculated here for Y-axes
-#stats ifnamed using 4 name "Y" nooutput
+#stats ifnamed using 3 name "Y" nooutput
 #Yd_min = Y_min * 0.90
 #Yd_max = Y_max * 1.10
 
@@ -50,7 +50,7 @@ Xw_min = X_min + utc_offset - 946684800
 Xw_max = X_max + utc_offset - 946684800
 
 # stats for Y-axis
-stats ifnamew using 4 name "Y" nooutput
+stats ifnamew using 3 name "Y" nooutput
 Yw_min = Y_min -1
 Yw_max = Y_max +1
 
@@ -91,7 +91,7 @@ set rmargin at screen LMPOS
 
 # ***** PLOT *****
 plot ifnamew \
-      using ($2+utc_offset):4 title " Temperature [degC]" with points pt 5 ps 0.2 fc rgb "#ccbb0000" \
+      using ($2+utc_offset):3 title " Temperature [degC]" with points pt 5 ps 0.2 fc rgb "#ccbb0000" \
 
 
 
@@ -122,7 +122,7 @@ set rmargin at screen MRPOS
 
 # ***** PLOT *****
 plot ifnamed \
-      using ($2+utc_offset):4 with points pt 5 ps 0.2 fc rgb "#ccbb0000" \
+      using ($2+utc_offset):3 with points pt 5 ps 0.2 fc rgb "#ccbb0000" \
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -151,7 +151,7 @@ set rmargin -1
 
 # ***** PLOT *****
 plot ifnameh \
-      using ($2+utc_offset):4 with points pt 5 ps 0.2 fc rgb "#ccbb0000" \
+      using ($2+utc_offset):3 with points pt 5 ps 0.2 fc rgb "#ccbb0000" \
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #                                                                 FINALIZING
