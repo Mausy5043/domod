@@ -7,7 +7,7 @@ LOCALSECONDS=$(date -d "$LOCAL" +%s)
 UTC=$(date -u -d "$LOCAL" +"%Y-%m-%d %H:%M:%S")  #remove timezone reference
 UTCSECONDS=$(date -d "$UTC" +%s)
 UTCOFFSET=$(($LOCALSECONDS-$UTCSECONDS))
-datastore="/tmp/lnxdiagd/mysql"
+datastore="/tmp/domod/mysql"
 
 if [ ! -d "$datastore" ]; then
   mkdir -p "$datastore"
