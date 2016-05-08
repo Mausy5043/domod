@@ -3,9 +3,9 @@
 # graph of humidity (and temperature)
 
 # datafile
-ifnameh = "/tmp/sql22h.csv"
-ifnamed = "/tmp/sql22d.csv"
-ifnamew = "/tmp/sql22w.csv"
+ifnameh = "/tmp/domod/mysql/sql22h.csv"
+ifnamed = "/tmp/domod/mysql/sql22d.csv"
+ifnamew = "/tmp/domod/mysql/sql22w.csv"
 set output ofname = "/tmp/domod/site/img/day22.png"
 
 # ******************************************************* General settings *****

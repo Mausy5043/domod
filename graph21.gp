@@ -3,9 +3,9 @@
 # graph of temperature
 
 # datafile
-ifnameh = "/tmp/sql21h.csv"
-ifnamed = "/tmp/sql21d.csv"
-ifnamew = "/tmp/sql21w.csv"
+ifnameh = "/tmp/domod/mysql/sql21h.csv"
+ifnamed = "/tmp/domod/mysql/sql21d.csv"
+ifnamew = "/tmp/domod/mysql/sql21w.csv"
 set output ofname = "/tmp/domod/site/img/day21.png"
 
 # ******************************************************* General settings *****
