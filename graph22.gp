@@ -18,7 +18,7 @@ tz_offset = utc_offset / 3600 # GNUplot only works with UTC. Need to compensate
 # Positions of split between graphs
 LMPOS = 0.36
 MRPOS = 0.73
-RMARG = 1.00
+RMARG = 0.96
 
 # ********************************************************* Statistics (R) *****
 # stats to be calculated here of column 2 (UX-epoch)
@@ -154,6 +154,7 @@ set xdata time               # Data on X-axis should be interpreted as time
 set timefmt "%s"             # Time in log-file is given in Unix format
 set format x "%R"            # Display time in 24 hour notation on the X axis
 set xrange [ Xh_min : Xh_max ]
+set xtics textcolor rgb "red"
 
 # ***************************************************************** Y-axis *****
 set ylabel " "
