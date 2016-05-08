@@ -12,6 +12,10 @@ if [ ! -d /tmp/domod/site/img ]; then
   mkdir -p /tmp/domod/site/img
   chmod -R 755 /tmp/domod
 fi
+if [ ! -d /tmp/domod/mysql ]; then
+  mkdir -p /tmp/domod/mysql
+  chmod -R 755 /tmp/domod
+fi
 
 pushd "$HOME/domod"
   source ./includes
