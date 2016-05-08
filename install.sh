@@ -8,6 +8,12 @@ ME=$(whoami)
 echo -n "Started installing DOMOD on "; date
 minit=$(echo $RANDOM/555 |bc)
 echo "MINIT = "$minit
+
+np=$(dpkg-query -W -f='${Status} ${Version}\n' python-numpy 2>/dev/null | wc -l)
+if [ $np -eq 0 ]; then
+  sudo apt-get -yuV install python-numpy
+fi
+
 pushd "$HOME/domod"
   # To suppress git detecting changes by chmod:
   git config core.fileMode false
