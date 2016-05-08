@@ -132,6 +132,7 @@ set y2range [ Y2_min : Y2_max ]
 unset key
 
 # ***************************************************************** Output *****
+set arrow from graph 0,graph 0 to graph 0,graph 1 nohead lc rgb "black" front
 set lmargin at screen LMPOS+0.001
 set rmargin at screen MRPOS
 
