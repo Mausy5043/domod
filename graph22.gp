@@ -160,6 +160,7 @@ set yrange [ Yw_min : Yw_max ]
 
 # **************************************************************** Y2-axis *****
 set y2label "Temperature [degC]"
+set y2tics format "%2.1f"
 set y2range [ Y2_min : Y2_max ]
 set y2tics border
 
