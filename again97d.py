@@ -7,7 +7,7 @@ import glob
 # import math
 import MySQLdb as mdb
 import os
-import shutil
+# import shutil
 # import subprocess
 import sys
 import syslog
