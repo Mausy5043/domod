@@ -60,7 +60,7 @@ stats ifnamew using 4 name "Y2" nooutput
 Y2w_min = Y2_min -1
 Y2w_max = Y2_max +1
 
-set multiplot layout 1, 3 title "Pressure & Temperature (BMP183) ".strftime("( %Y-%m-%dT%H:%M )", time(0)+utc_offset)
+set multiplot layout 1, 3 title "Pressure \\& Temperature (BMP183) ".strftime("( %Y-%m-%dT%H:%M )", time(0)+utc_offset)
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
