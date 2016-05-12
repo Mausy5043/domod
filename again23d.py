@@ -48,7 +48,7 @@ NODE        = os.uname()[1]
 BMP183T_gain = 1.0
 BMP183P_gain = 1.0
 # offset(old)
-BMP183T_offset = 0.0
+BMP183T_offset = -0.2
 BMP183P_offset = 0.0
 
 class MyDaemon(Daemon):
