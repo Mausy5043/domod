@@ -15,4 +15,7 @@ pushd $HOME/domod >/dev/null
   if [ $(cat /tmp/domod/mysql/sql22d.csv | wc -l) -gt 30 ]; then
     gnuplot -e "utc_offset='${UTCOFFSET}'" ./graph22.gp
   fi
+  if [ $(cat /tmp/domod/mysql/sql23d.csv | wc -l) -gt 30 ]; then
+    gnuplot -e "utc_offset='${UTCOFFSET}'" ./graph23.gp
+  fi
 popd >/dev/null

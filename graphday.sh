@@ -12,8 +12,8 @@ interval="INTERVAL 50 HOUR "
 host=$(hostname)
 
 pushd $HOME/domod >/dev/null
-  mysql -h sql.lan --skip-column-names -e "USE domotica; SELECT * FROM ds18  where (sample_time >=NOW() - $interval);" | sed 's/\t/;/g;s/\n//g' > /tmp/sql21.csv
-  mysql -h sql.lan --skip-column-names -e "USE domotica; SELECT * FROM dht22 where (sample_time >=NOW() - $interval);" | sed 's/\t/;/g;s/\n//g' > /tmp/sql22.csv
+  # mysql -h sql.lan --skip-column-names -e "USE domotica; SELECT * FROM ds18  where (sample_time >=NOW() - $interval);" | sed 's/\t/;/g;s/\n//g' > /tmp/sql21.csv
+  # mysql -h sql.lan --skip-column-names -e "USE domotica; SELECT * FROM dht22 where (sample_time >=NOW() - $interval);" | sed 's/\t/;/g;s/\n//g' > /tmp/sql22.csv
   #mysql -h sql.lan --skip-column-names -e "USE domotica; SELECT * FROM sysnet  where (sample_time >=NOW() - $interval) AND (host = '$host');" | sed 's/\t/;/g;s/\n//g' > /tmp/sql13.csv
   #mysql -h sql.lan --skip-column-names -e "USE domotica; SELECT * FROM sysmem  where (sample_time >=NOW() - $interval) AND (host = '$host');" | sed 's/\t/;/g;s/\n//g' > /tmp/sql14.csv
   #mysql -h sql.lan --skip-column-names -e "USE domotica; SELECT * FROM syslog  where (sample_time >=NOW() - $interval) AND (host = '$host');" | sed 's/\t/;/g;s/\n//g' > /tmp/sql15.csv
@@ -27,9 +27,9 @@ pushd $HOME/domod >/dev/null
   if [ $(cat /tmp/sql22.csv |wc -l) -gt 30 ]; then
     gnuplot -e "utc_offset='${UTCOFFSET}'" ./graph22.gp
   fi
-  #if [ $(cat /tmp/sql13.csv |wc -l) -gt 30 ]; then
-  #  gnuplot -e "utc_offset='${UTCOFFSET}'" ./graph13.gp
-  #fi
+  if [ $(cat /tmp/sql13.csv |wc -l) -gt 30 ]; then
+    gnuplot -e "utc_offset='${UTCOFFSET}'" ./graph23.gp
+  fi
   #if [ $(cat /tmp/sql14.csv |wc -l) -gt 30 ]; then
   #  gnuplot -e "utc_offset='${UTCOFFSET}'" ./graph14.gp
   #fi
