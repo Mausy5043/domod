@@ -109,7 +109,7 @@ class MyDaemon(Daemon):
         raise
 
 def do_work(homedir):
-  P0 = T0 P = T = 0.11
+  P0 = T0 = P = T = 0.11
   bmp.measure_pressure()
   P0 = bmp.pressure / 100.0  # hPa := mbar
   T0 = bmp.temperature
