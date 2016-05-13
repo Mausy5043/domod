@@ -20,6 +20,9 @@ LMPOS = 0.36
 MRPOS = 0.73
 RMARG = 0.96
 
+min(x,y) = (x < y) ? x : y
+max(x,y) = (x > y) ? x : y
+
 # ********************************************************* Statistics (R) *****
 # stats to be calculated here of column 2 (UX-epoch)
 stats ifnameh using 2 name "X" nooutput
@@ -28,9 +31,14 @@ Xh_min = X_min + utc_offset - 946684800
 Xh_max = X_max + utc_offset - 946684800
 
 # stats to be calculated here for Y-axes
-#stats ifnameh using 4 name "Y" nooutput
-#Yh_min = Y_min * 0.90
-#Yh_max = Y_max * 1.10
+stats ifnameh using 3 name "Y" nooutput
+Yh_min = Y_min
+Yh_max = Y_max
+
+# stats for Y2-axis
+stats ifnamew using 4 name "Y2" nooutput
+Y2w_min = Y2_min
+Y2w_max = Y2_max
 
 # ********************************************************* Statistics (M) *****
 # stats to be calculated here of column 2 (UX-epoch)
@@ -40,9 +48,14 @@ Xd_min = X_min + utc_offset - 946684800
 Xd_max = X_max + utc_offset - 946684800
 
 # stats to be calculated here for Y-axes
-#stats ifnamed using 4 name "Y" nooutput
-#Yd_min = Y_min * 0.90
-#Yd_max = Y_max * 1.10
+stats ifnamed using 3 name "Y" nooutput
+Yd_min = Y_min
+Yd_max = Y_max
+
+# stats for Y2-axis
+stats ifnamew using 4 name "Y2" nooutput
+Y2w_min = Y2_min
+Y2w_max = Y2_max
 
 # ********************************************************* Statistics (L) *****
 # stats to be calculated here of column 2 (UX-epoch)
@@ -52,13 +65,18 @@ Xw_max = X_max + utc_offset - 946684800
 
 # stats for Y-axis
 stats ifnamew using 3 name "Y" nooutput
-Yw_min = Y_min -1
-Yw_max = Y_max +1
+Yw_min = Y_min
+Yw_max = Y_max
 
 # stats for Y2-axis
 stats ifnamew using 4 name "Y2" nooutput
-Y2w_min = Y2_min -1
-Y2w_max = Y2_max +1
+Y2w_min = Y2_min
+Y2w_max = Y2_max
+
+Ymax = max(max(Yd_max, Yh_max), Yw_max) +1
+Ymin = min(min(Yd_min, Yh_min), Yw_min) -1
+Y2max = max(max(Y2d_max, Y2h_max), Y2w_max) +1
+Y2min = min(min(Y2d_min, Y2h_min), Y2w_min) -1
 
 set multiplot layout 1, 3 title "Humidity \\& Temperature (DHT22) ".strftime("( %Y-%m-%dT%H:%M )", time(0)+utc_offset)
 
