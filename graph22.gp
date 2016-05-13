@@ -31,14 +31,10 @@ Xh_min = X_min + utc_offset - 946684800
 Xh_max = X_max + utc_offset - 946684800
 
 # stats to be calculated here for Y-axes
-stats ifnameh using 3 name "Y" nooutput
-Yh_min = Y_min
-Yh_max = Y_max
+stats ifnameh using 3 name "Yh" nooutput
 
 # stats for Y2-axis
-stats ifnamew using 4 name "Y2" nooutput
-Y2w_min = Y2_min
-Y2w_max = Y2_max
+stats ifnameh using 4 name "Y2h" nooutput
 
 # ********************************************************* Statistics (M) *****
 # stats to be calculated here of column 2 (UX-epoch)
@@ -48,14 +44,10 @@ Xd_min = X_min + utc_offset - 946684800
 Xd_max = X_max + utc_offset - 946684800
 
 # stats to be calculated here for Y-axes
-stats ifnamed using 3 name "Y" nooutput
-Yd_min = Y_min
-Yd_max = Y_max
+stats ifnamed using 3 name "Yd" nooutput
 
 # stats for Y2-axis
-stats ifnamew using 4 name "Y2" nooutput
-Y2w_min = Y2_min
-Y2w_max = Y2_max
+stats ifnamed using 4 name "Y2d" nooutput
 
 # ********************************************************* Statistics (L) *****
 # stats to be calculated here of column 2 (UX-epoch)
@@ -64,14 +56,10 @@ Xw_min = X_min + utc_offset - 946684800
 Xw_max = X_max + utc_offset - 946684800
 
 # stats for Y-axis
-stats ifnamew using 3 name "Y" nooutput
-Yw_min = Y_min
-Yw_max = Y_max
+stats ifnamew using 3 name "Yw" nooutput
 
 # stats for Y2-axis
-stats ifnamew using 4 name "Y2" nooutput
-Y2w_min = Y2_min
-Y2w_max = Y2_max
+stats ifnamew using 4 name "Y2w" nooutput
 
 Ymax = max(max(Yd_max, Yh_max), Yw_max) +1
 Ymin = min(min(Yd_min, Yh_min), Yw_min) -1
