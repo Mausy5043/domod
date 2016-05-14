@@ -67,7 +67,7 @@ Ymin = min(min(Yd_min, Yh_min), Yw_min) -1
 Y2max = max(max(Y2d_max, Y2h_max), Y2w_max) +1
 Y2min = min(min(Y2d_min, Y2h_min), Y2w_min) -1
 
-set multiplot layout 1, 3 title "Pressure \\& Temperature (BMP183) ".strftime("( %Y-%m-%dT%H:%M )", time(0)+utc_offset)
+set multiplot layout 1, 3 title "Pressure \\& Temperature (BMP183) ".strftime("( %Y-%m-%dT%H:%M:%S )", time(0)+utc_offset)
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

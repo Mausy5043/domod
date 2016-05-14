@@ -60,7 +60,7 @@ stats ifnamew using 3 name "Yw" nooutput
 Ymax = max(max(Yd_max, Yh_max), Yw_max) +1
 Ymin = min(min(Yd_min, Yh_min), Yw_min) -1
 
-set multiplot layout 1, 3 title "Temperature (DS18B20) ".strftime("( %Y-%m-%dT%H:%M )", time(0)+utc_offset)
+set multiplot layout 1, 3 title "Temperature (DS18B20) ".strftime("( %Y-%m-%dT%H:%M:%S )", time(0)+utc_offset)
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
