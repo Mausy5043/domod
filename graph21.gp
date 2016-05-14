@@ -16,8 +16,9 @@ set grid
 tz_offset = utc_offset / 3600 # GNUplot only works with UTC. Need to compensate
                               # for timezone ourselves.
 # Positions of split between graphs
-LMPOS = 0.36
-MRPOS = 0.73
+LMARG = 0.056
+LMPOS = 0.347
+MRPOS = 0.75
 RMARG = 0.96
 
 # ********************************************************* Statistics (R) *****
