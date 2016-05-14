@@ -84,12 +84,12 @@ set xrange [ Xw_min : Xw_max ]
 
 # ***************************************************************** Y-axis *****
 set ylabel "Humidity [%]"
-set yrange [ Yw_min : Yw_max ]
+set yrange [ Ymin : Ymax ]
 
 # **************************************************************** Y2-axis *****
 set y2label " "
 set y2tics format " "
-set y2range [ Y2w_min : Y2w_max ]
+set y2range [ Y2min : Y2max ]
 
 # ***************************************************************** Legend *****
 set key inside top left horizontal box
@@ -128,12 +128,12 @@ set xrange [ Xd_min : Xd_max ]
 # ***************************************************************** Y-axis *****
 set ylabel " "
 set ytics format " "
-set yrange [ Yw_min : Yw_max ]
+set yrange [ Ymin : Ymax ]
 
 # **************************************************************** Y2-axis *****
 set y2label " "
 set y2tics format " "
-set y2range [ Y2w_min : Y2w_max ]
+set y2range [ Y2min : Y2max ]
 
 # ***************************************************************** Legend *****
 unset key
@@ -165,12 +165,12 @@ set xtics textcolor rgb "red"
 # ***************************************************************** Y-axis *****
 set ylabel " "
 set ytics format " "
-set yrange [ Yw_min : Yw_max ]
+set yrange [ Ymin : Ymax ]
 
 # **************************************************************** Y2-axis *****
 set y2label "Temperature [degC]"
 set y2tics format "%.0f"
-set y2range [ Y2w_min : Y2w_max ]
+set y2range [ Y2min : Y2max ]
 set y2tics border
 
 # ***************************************************************** Legend *****
