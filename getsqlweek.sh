@@ -13,7 +13,7 @@ if [ ! -d "$datastore" ]; then
   mkdir -p "$datastore"
 fi
 
-interval="INTERVAL 7 DAY "
+interval="INTERVAL 8 DAY "
 host=$(hostname)
 
 pushd $HOME/domod >/dev/null
