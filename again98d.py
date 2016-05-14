@@ -32,6 +32,8 @@ class MyDaemon(Daemon):
     s               = iniconf.read(home + '/' + MYAPP + '/config.ini')
     syslog_trace("Config file   : {0}".format(s), False, DEBUG)
     syslog_trace("Options       : {0}".format(iniconf.items(inisection)), False, DEBUG)
+    syslog_trace("getsqlday.sh  runs every 30 minutes starting at minute {0}".format(SQLMNT), syslog.LOG_DEBUG, DEBUG)
+    syslog_trace("getsqlweek.sh runs every 4th hour  starting  at hour   {0}".format(SQLHR), syslog.LOG_DEBUG, DEBUG)
     reportTime      = iniconf.getint(inisection, "reporttime")
     samplesperCycle = iniconf.getint(inisection, "samplespercycle")
     flock           = iniconf.get(inisection, "lockfile")
