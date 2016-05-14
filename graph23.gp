@@ -104,13 +104,14 @@ set arrow from graph 0,graph 0 to graph 0,graph 1 nohead lc rgb "red" front
 #set object 1 rect fc rgb "#eeeeee" fillstyle solid 1.0 noborder
 #set object 2 rect from graph 0,0 to graph 1,1 behind
 #set object 2 rect fc rgb "#ffffff" fillstyle solid 1.0 noborder
+
+set lmargin at screen LMARG
 set rmargin at screen LMPOS
 
 # ***** PLOT *****
 plot ifnamew \
       using ($2+utc_offset):4 title " Temperature [degC]" axes x1y2  with points pt 5 ps 0.2 fc rgb "#cc99bb99" \
   ,'' using ($2+utc_offset):3 title " Pressure [mbar]"    with points pt 5 ps 0.2 fc rgb "#ccbb0000" \
-
 
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
