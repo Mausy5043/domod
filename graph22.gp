@@ -17,7 +17,7 @@ tz_offset = utc_offset / 3600 # GNUplot only works with UTC. Need to compensate
                               # for timezone ourselves.
 # Positions of split between graphs
 LMARG = 0.056
-LMPOS = 0.347
+LMPOS = 0.403
 MRPOS = 0.75
 RMARG = 0.96
 
