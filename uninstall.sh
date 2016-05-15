@@ -2,16 +2,14 @@
 
 # this repo gets installed either manually by the user or automatically by
 # a `*boot` repo.
-# The hostname is in /etc/hostname prior to running `install.sh` here!
 
-ME=$(whoami)
+# The hostname is in /etc/hostname prior to running `install.sh` here!
 HOSTNAME=$(cat /etc/hostname)
 
 echo -n "Started UNinstalling DOMOD on "; date
 
 pushd "$HOME/domod"
  source ./includes
-
 
   sudo rm /etc/cron.d/domod
 

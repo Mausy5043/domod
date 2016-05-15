@@ -7,10 +7,10 @@ ME=$(whoami)
 
 echo -n "Started installing DOMOD on "; date
 minit=$(echo $RANDOM/555 |bc)
-echo "MINIT = "$minit
+echo "MINIT = $minit"
 
 np=$(dpkg-query -W -f='${Status} ${Version}\n' python-numpy 2>/dev/null | wc -l)
-if [ $np -eq 0 ]; then
+if [ "$np" -eq 0 ]; then
   sudo apt-get -yuV install python-numpy
 fi
 
@@ -33,7 +33,7 @@ pushd "$HOME/domod"
   pushd DHTXXD
     gcc -Wall -pthread -o DHTXXD test_DHTXXD.c DHTXXD.c -lpigpiod_if2
     # sudo pigpiod
-    mv DHTXXD $HOME/bin/DHTXXD
+    mv DHTXXD "$HOME/bin/DHTXXD"
     DHTXXD -g18
   popd
 popd
