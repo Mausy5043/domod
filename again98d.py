@@ -64,7 +64,7 @@ class MyDaemon(Daemon):
 def do_mv_data(flock, homedir, script):
   # wait 15 seconds for processes to finish
   unlock(flock)  # remove stale lock
-  t0 = time.time()
+  time.sleep(4)
 
   getsqldata(homedir, False)
 
@@ -80,29 +80,29 @@ def do_mv_data(flock, homedir, script):
     cmnd = subprocess.check_output(cmnd)
     syslog_trace("...:  {0}".format(cmnd), False, DEBUG)
 
-  waitTime = 15 - (time.time() - t0)
-  if waitTime > 0:
-    time.sleep(waitTime)
-  lock(flock)
-  # wait for all other processes to release their locks.
-  count_internal_locks = 2
-  while (count_internal_locks > 1):
-    time.sleep(1)
-    count_internal_locks = 0
-    for fname in glob.glob(r'/tmp/' + MYAPP + '/*.lock'):
-      count_internal_locks += 1
-    syslog_trace("{0} internal locks exist".format(count_internal_locks), False, DEBUG)
-  # endwhile
-
-  for fname in glob.glob(r'/tmp/' + MYAPP + '/*.csv'):
-    syslog_trace("...moving data {0}".format(fname), False, DEBUG)
-    shutil.move(fname, fname+".DEAD")
+  #  waitTime = 15 - (time.time() - t0)
+  #  if waitTime > 0:
+  #    time.sleep(waitTime)
+  #  lock(flock)
+  #  # wait for all other processes to release their locks.
+  #  count_internal_locks = 2
+  #  while (count_internal_locks > 1):
+  #    time.sleep(1)
+  #    count_internal_locks = 0
+  #    for fname in glob.glob(r'/tmp/' + MYAPP + '/*.lock'):
+  #      count_internal_locks += 1
+  #    syslog_trace("{0} internal locks exist".format(count_internal_locks), False, DEBUG)
+  #  # endwhile
+  #
+  #  for fname in glob.glob(r'/tmp/' + MYAPP + '/*.csv'):
+  #    syslog_trace("...moving data {0}".format(fname), False, DEBUG)
+  #    shutil.move(fname, fname+".DEAD")
 
   # for fname in glob.glob(r'/tmp/' + MYAPP + '/*.png'):
   #  syslog_trace("...moving graph {0}".format(fname), False, DEBUG)
   #  shutil.move(fname, fname+".DEAD")
 
-  unlock(flock)
+  # unlock(flock)
 
 def getsqldata(homedir, nu):
   minit = int(time.strftime('%M'))
