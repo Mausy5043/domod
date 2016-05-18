@@ -9,10 +9,25 @@ echo -n "Started installing DOMOD on "; date
 minit=$(echo $RANDOM/555 |bc)
 echo "MINIT = $minit"
 
-np=$(dpkg-query -W -f='${Status} ${Version}\n' python-numpy 2>/dev/null | wc -l)
-if [ "$np" -eq 0 ]; then
-  sudo apt-get -yuV install python-numpy
-fi
+install_package()
+{
+  # See if packages are installed and install them.
+  package=$1
+  status=$(dpkg-query -W -f='${Status} ${Version}\n' $package 2>/dev/null | wc -l)
+  if [ "$status" -eq 0 ]; then
+    sudo apt-get -yuV install $package
+  fi
+}
+
+sudo apt-get update
+install_package "git"
+install_package "python"
+install_package "lftp"
+install_package "gnuplot"
+install_package "gnuplot-nox"
+install_package "mysql-client"
+install_package "python-mysqldb"
+install_package "python-numpy"
 
 pushd "$HOME/domod"
   # To suppress git detecting changes by chmod:
