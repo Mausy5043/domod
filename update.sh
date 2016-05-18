@@ -12,12 +12,8 @@ echo "Waiting 30s..."
 sleep 30
 
 # make sure working tree exists
-if [ ! -d /tmp/domod/site/img ]; then
-  mkdir -p /tmp/domod/site/img
-  chmod -R 755 /tmp/domod
-fi
-if [ ! -d /tmp/domod/mysql ]; then
-  mkdir -p /tmp/domod/mysql
+if [ ! -d /tmp/domod ]; then
+  mkdir -p /tmp/domod
   chmod -R 755 /tmp/domod
 fi
 

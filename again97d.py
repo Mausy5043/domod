@@ -148,12 +148,8 @@ def do_sql_data(flock, inicnfg, cnsql):
       syslog_trace("** {0}".format(e.message), False, DEBUG)
 
     try:
-      # ofile = inicnfg.get(inisect, "rawfile")
-      # syslog_trace(" > {0}".format(ofile), False, DEBUG)
       if not errsql:                     # SQL-job was successful or non-existing
         if os.path.isfile(ifile):        # IF resultfile exists
-          # if not os.path.isfile(ofile):  # AND rawfile does not exist
-          #  shutil.move(ifile, ofile)    # THEN move the file over
           syslog_trace("Deleting {0}".format(ifile), False, DEBUG)
           os.remove(ifile)
     except ConfigParser.NoOptionError as e:  # no ofile

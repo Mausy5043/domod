@@ -22,9 +22,6 @@ install_package()
 sudo apt-get update
 install_package "git"
 install_package "python"
-install_package "lftp"
-install_package "gnuplot"
-install_package "gnuplot-nox"
 install_package "mysql-client"
 install_package "python-mysqldb"
 install_package "python-numpy"
