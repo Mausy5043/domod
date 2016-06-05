@@ -213,14 +213,14 @@ if __name__ == "__main__":
       daemon.restart()
     elif 'foreground' == sys.argv[1]:
       # assist with debugging.
-      print "Debug-mode started. Use <Ctrl>+C to stop."
+      print("Debug-mode started. Use <Ctrl>+C to stop.")
       DEBUG = True
       syslog_trace("Daemon logging is ON", syslog.LOG_DEBUG, DEBUG)
       daemon.run()
     else:
-      print "Unknown command"
+      print("Unknown command")
       sys.exit(2)
     sys.exit(0)
   else:
-    print "usage: {0!s} start|stop|restart|foreground".format(sys.argv[0])
+    print("usage: {0!s} start|stop|restart|foreground".format(sys.argv[0]))
     sys.exit(2)
