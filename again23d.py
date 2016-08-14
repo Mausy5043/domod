@@ -89,7 +89,7 @@ class MyDaemon(Daemon):
             somma       = [sum(d) for d in zip(*data)]
             # not all entries should be float
             # 0.37, 0.18, 0.17, 4, 143, 32147, 3, 4, 93, 0, 0
-            averages    = [format(sm / len(data), '.2f') for sm in somma]
+            averages    = [float(format(sm / len(data), '.2f')) for sm in somma]
             # averages = map(float, averages)
             # averages  = format(sum(data[:]) / len(data), '.3f')
             syslog_trace("Averages : {0}".format(averages),  False, DEBUG)
