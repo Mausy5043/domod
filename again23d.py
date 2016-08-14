@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # daemon23.py measures the BMP183 pressure and temperature.
 # uses moving averages
