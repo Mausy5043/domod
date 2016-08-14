@@ -20,11 +20,22 @@ install_package()
 }
 
 sudo apt-get update
-install_package "git"
+
+# install_package "git"  # already installed by `mod-rasbian-netinst`
+
+# Python 2 package
 install_package "python"
+# Python 3 package and associates
+# install_package "python3"
+# install_package "build-essential"
+# install_package "python3-dev"
+# install_package "python3-pip"
+
+# MySQL support
 install_package "mysql-client"
-install_package "python-mysqldb"
-install_package "python-numpy"
+install_package "libmysqlclient-dev"
+install_package "python-mysqldb"  # only required by python 2
+# sudo pip3 install mysqlclient     # only required by python 3
 
 pushd "$HOME/domod"
   # To suppress git detecting changes by chmod:
