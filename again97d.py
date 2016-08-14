@@ -1,14 +1,11 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 
 # daemon97.py pushes data to the MySQL-server.
 
-import ConfigParser
+import configparser
 import glob
-# import math
 import MySQLdb as mdb
 import os
-# import shutil
-# import subprocess
 import sys
 import syslog
 import time
@@ -19,7 +16,7 @@ from libdaemon import Daemon
 # constants
 DEBUG       = False
 IS_JOURNALD = os.path.isfile('/bin/journalctl')
-MYID        = filter(str.isdigit, os.path.realpath(__file__).split('/')[-1])
+MYID        = "".join(list(filter(str.isdigit, os.path.realpath(__file__).split('/')[-1])))
 MYAPP       = os.path.realpath(__file__).split('/')[-2]
 NODE        = os.uname()[1]
 
@@ -42,7 +39,7 @@ class MyDaemon(Daemon):
         syslog_trace(" ** Closed MySQL connection in run() **", syslog.LOG_CRIT, DEBUG)
       raise
 
-    iniconf         = ConfigParser.ConfigParser()
+    iniconf         = configparser.ConfigParser()
     inisection      = MYID
     home            = os.path.expanduser('~')
     s               = iniconf.read(home + '/' + MYAPP + '/config.ini')
@@ -130,7 +127,7 @@ def do_sql_data(flock, inicnfg, cnsql):
       try:
         sqlcmd = []
         sqlcmd = inicnfg.get(inisect, "sqlcmd")
-        syslog_trace("   {0}".format(sqlcmd), False, DEBUG)
+        syslog_trace("   CMD : {0}".format(sqlcmd), False, DEBUG)
 
         data = cat(ifile).splitlines()
         if data:
@@ -138,18 +135,18 @@ def do_sql_data(flock, inicnfg, cnsql):
             errsql = do_writesample(cnsql, sqlcmd, data[entry])
           # endfor
         # endif
-      except ConfigParser.NoOptionError as e:  # no sqlcmd
-        syslog_trace("** {0}".format(e.message), False, DEBUG)
-    except ConfigParser.NoOptionError as e:  # no ifile
-      syslog_trace("** {0}".format(e.message), False, DEBUG)
+      except configparser.NoOptionError as e:  # no sqlcmd
+        syslog_trace("*1* {0}".format(e.__str__), False, DEBUG)
+    except configparser.NoOptionError as e:  # no ifile
+      syslog_trace("*2* {0}".format(e.__str__), False, DEBUG)
 
     try:
       if not errsql:                     # SQL-job was successful or non-existing
         if os.path.isfile(ifile):        # IF resultfile exists
           syslog_trace("Deleting {0}".format(ifile), False, DEBUG)
           os.remove(ifile)
-    except ConfigParser.NoOptionError as e:  # no ofile
-      syslog_trace("** {0}".format(e.message), False, DEBUG)
+    except configparser.NoOptionError as e:  # no ofile
+      syslog_trace("*3* {0}".format(e.__str__), False, DEBUG)
 
   # endfor
   unlock(flock)
@@ -170,7 +167,7 @@ def syslog_trace(trace, logerr, out2console):
     if line and logerr:
       syslog.syslog(logerr, line)
     if line and out2console:
-      print line
+      print(line)
 
 if __name__ == "__main__":
   daemon = MyDaemon('/tmp/' + MYAPP + '/' + MYID + '.pid')
@@ -183,14 +180,14 @@ if __name__ == "__main__":
       daemon.restart()
     elif 'foreground' == sys.argv[1]:
       # assist with debugging.
-      print "Debug-mode started. Use <Ctrl>+C to stop."
+      print("Debug-mode started. Use <Ctrl>+C to stop.")
       DEBUG = True
       syslog_trace("Daemon logging is ON", syslog.LOG_DEBUG, DEBUG)
       daemon.run()
     else:
-      print "Unknown command"
+      print("Unknown command")
       sys.exit(2)
     sys.exit(0)
   else:
-    print "usage: {0!s} start|stop|restart|foreground".format(sys.argv[0])
+    print("usage: {0!s} start|stop|restart|foreground".format(sys.argv[0]))
     sys.exit(2)

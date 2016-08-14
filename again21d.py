@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # again21.py measures the DS18B20 temperature.
 # uses moving averages
@@ -10,7 +10,7 @@
 # Data  (yellow)   = 07  - GPIO04
 # GND   (blue)     = 09  - GND
 
-import ConfigParser
+import configparser
 import glob
 import os
 import sys
@@ -23,7 +23,7 @@ from libdaemon import Daemon
 # constants
 DEBUG       = False
 IS_JOURNALD = os.path.isfile('/bin/journalctl')
-MYID        = filter(str.isdigit, os.path.realpath(__file__).split('/')[-1])
+MYID        = "".join(list(filter(str.isdigit, os.path.realpath(__file__).split('/')[-1])))
 MYAPP       = os.path.realpath(__file__).split('/')[-2]
 NODE        = os.uname()[1]
 
@@ -49,7 +49,7 @@ OWfile = OWdev + '/w1_slave'
 
 class MyDaemon(Daemon):
   def run(self):
-    iniconf         = ConfigParser.ConfigParser()
+    iniconf         = configparser.ConfigParser()
     inisection      = MYID
     home            = os.path.expanduser('~')
     s               = iniconf.read(home + '/' + MYAPP + '/config.ini')

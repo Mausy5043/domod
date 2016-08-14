@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # daemon22.py measures the DHT22 humidity and temperature.
 # uses moving averages
@@ -11,7 +11,7 @@
 # NC               = not connected
 # GND              = 14  - GND
 
-import ConfigParser
+import configparser
 import os
 import subprocess
 import sys
@@ -24,7 +24,7 @@ from libdaemon import Daemon
 # constants
 DEBUG       = False
 IS_JOURNALD = os.path.isfile('/bin/journalctl')
-MYID        = filter(str.isdigit, os.path.realpath(__file__).split('/')[-1])
+MYID        = "".join(list(filter(str.isdigit, os.path.realpath(__file__).split('/')[-1])))
 MYAPP       = os.path.realpath(__file__).split('/')[-2]
 NODE        = os.uname()[1]
 
@@ -48,7 +48,7 @@ DHT22H_offset = 0.0
 
 class MyDaemon(Daemon):
   def run(self):
-    iniconf         = ConfigParser.ConfigParser()
+    iniconf         = configparser.ConfigParser()
     inisection      = MYID
     home            = os.path.expanduser('~')
     s               = iniconf.read(home + '/' + MYAPP + '/config.ini')
@@ -74,14 +74,14 @@ class MyDaemon(Daemon):
         syslog_trace("Result   : {0}".format(result), False, DEBUG)
         if (state == 0):
           result = result.split(',')
-          data.append(map(float, result))
+          data.append([float(d) for d in result])
           if (len(data) > samples):
             data.pop(0)
           syslog_trace("Data     : {0}".format(data),   False, DEBUG)
 
           # report sample average
           if (startTime % reportTime < sampleTime):
-            somma       = map(sum, zip(*data))
+            somma       = [sum(d) for d in zip(*data)]
             # not all entries should be float
             # 0.37, 0.18, 0.17, 4, 143, 32147, 3, 4, 93, 0, 0
             averages    = [format(sm / len(data), '.2f') for sm in somma]
