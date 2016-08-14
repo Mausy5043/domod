@@ -30,6 +30,7 @@ install_package "python3"
 install_package "build-essential"
 install_package "python3-dev"
 install_package "python3-pip"
+install_package "python3-numpy"
 
 # MySQL support
 install_package "mysql-client"
