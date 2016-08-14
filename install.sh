@@ -24,25 +24,25 @@ sudo apt-get update
 # install_package "git"  # already installed by `mod-rasbian-netinst`
 
 # Python 2 package
-install_package "python"
+# install_package "python"
 # Python 3 package and associates
-# install_package "python3"
-# install_package "build-essential"
-# install_package "python3-dev"
-# install_package "python3-pip"
+install_package "python3"
+install_package "build-essential"
+install_package "python3-dev"
+install_package "python3-pip"
 
 # MySQL support
 install_package "mysql-client"
 install_package "libmysqlclient-dev"
-install_package "python-mysqldb"  # only required by python 2
-# sudo pip3 install mysqlclient     # only required by python 3
+# install_package "python-mysqldb"  # only required by python 2
+sudo pip3 install mysqlclient     # only required by python 3
 
 pushd "$HOME/domod"
   # To suppress git detecting changes by chmod:
   git config core.fileMode false
   # set the branch
   if [ ! -e "$HOME/.domod.branch" ]; then
-    echo "v0" > "$HOME/.domod.branch"
+    echo "python3" > "$HOME/.domod.branch"
   fi
 
   # Create the /etc/cron.d directory if it doesn't exist
