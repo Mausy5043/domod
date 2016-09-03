@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS dht22;
 
 CREATE TABLE `dht22` (
   `sample_time`   datetime,
-  `sample_epoch`  bigint(11) unsigned,
+  `sample_epoch`  bigint(20) unsigned,
   `humidity`      decimal(6,2),
   `temperature`   decimal(5,2),
   PRIMARY KEY (`sample_time`)
