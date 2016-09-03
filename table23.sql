@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS bmp183;
 
 CREATE TABLE `bmp183` (
   `sample_time`   datetime,
-  `sample_epoch`  bigint(11) unsigned,
+  `sample_epoch`  bigint(20) unsigned,
   `pressure`      decimal(6,2),
   `temperature`   decimal(5,2),
   PRIMARY KEY (`sample_time`)
