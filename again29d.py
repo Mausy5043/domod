@@ -97,7 +97,7 @@ def do_work():
     req = Request("http://xml.buienradar.nl/")
     response = urlopen(req, timeout=25)
     output = response.read()
-    soup = BeautifulSoup(output)
+    soup = BeautifulSoup(output, "lxml")
     souptime = time.time()-ardtime
 
     MSwind = str(soup.buienradarnl.weergegevens.actueel_weer.weerstations.find(id=6350).windsnelheidms)
