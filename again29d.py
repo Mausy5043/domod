@@ -152,12 +152,14 @@ def unlock(fname):
   if os.path.isfile(fname):
     os.remove(fname)
 
-def syslog_trace(trace):
+def syslog_trace(trace, logerr, out2console):
   # Log a python stack trace to syslog
   log_lines = trace.split('\n')
   for line in log_lines:
-    if line:
-      syslog.syslog(syslog.LOG_ALERT, line)
+    if line and logerr:
+      syslog.syslog(logerr, line)
+    if line and out2console:
+      print(line)
 
 if __name__ == "__main__":
   daemon = MyDaemon('/tmp/' + MYAPP + '/' + MYID + '.pid')
