@@ -10,7 +10,8 @@ CREATE TABLE `bmp183` (
   `sample_epoch`  bigint(20) unsigned,
   `pressure`      decimal(6,2),
   `temperature`   decimal(5,2),
-  PRIMARY KEY (`sample_time`)
+  PRIMARY KEY (`sample_time`),
+  INDEX (`sample_epoch`)
   ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 # example to retrieve data:
