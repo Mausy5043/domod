@@ -47,17 +47,18 @@ class MyDaemon(Daemon):
     # from the reporting cycle.
     result = do_work().split(', ')
     syslog_trace("Result   : {0}".format(result), False, DEBUG)
-    data.append([float(d) for d in result])
+    # data.append([float(d) for d in result])
     extern_time = time.time() + EXTERNAL_DATA_EXPIRY_TIME
 
     while True:
       try:
         startTime = time.time()
-
-        data.append([float(d) for d in result])
-        if (len(data) > samples):
-          data.pop(0)
-        syslog_trace("Data     : {0}".format(data),   False, DEBUG)
+        da = [float(d) for d in result]
+        if ((da)[0] >= 0.0) and ((da)[1] >= 0.0):
+          data.append([float(d) for d in result])
+          if (len(data) > samples):
+            data.pop(0)
+          syslog_trace("Data     : {0}".format(data),   False, DEBUG)
 
         # report sample average
         if (startTime % reportTime < sampleTime):   # sync reports to reportTime
@@ -70,9 +71,11 @@ class MyDaemon(Daemon):
           if (extern_time < time.time()):
             result = do_work().split(', ')
             syslog_trace("Result   : {0}".format(result), False, DEBUG)
-            data.append([float(d) for d in result])
-            if (len(data) > samples):
-              data.pop(0)
+            da = [float(d) for d in result]
+            if ((da)[0] >= 0.0) and ((da)[1] >= 0.0):
+              data.append([float(d) for d in result])
+              if (len(data) > samples):
+                data.pop(0)
             extern_time = time.time() + EXTERNAL_DATA_EXPIRY_TIME
 
           do_report(averages, flock, fdata)
@@ -89,8 +92,8 @@ class MyDaemon(Daemon):
 
 def do_work():
   # set defaults
-  ms = 0
-  gr = 270
+  ms = -1.0
+  gr = -1.0
 
   ardtime = time.time()
   try:
