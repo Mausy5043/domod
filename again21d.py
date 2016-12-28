@@ -109,6 +109,7 @@ def read_temp_raw():
 def do_work():
   T = T0 = None
 
+  # read the temperature sensor
   lines = read_temp_raw()
   if lines[0].strip()[-3:] == 'YES':
     equals_pos = lines[1].find('t=')
@@ -116,9 +117,16 @@ def do_work():
       temp_string = lines[1][equals_pos+2:]
       T0 = float(temp_string) / 1000.0
 
+  # correct the temperature reading
   if T0 is not None:
     T = T0 * DS18B20_gain + DS18B20_offset
     syslog_trace("  T0 = {0:0.1f}*C        T = {1:0.1f}degC".format(T0, T), False, DEBUG)
+
+  # validate the temperature
+  if T > 45.0:
+    # can't believe my sensors. Probably a glitch. Log this and return with no result
+    syslog_trace("Tambient (HIGH): {0}".format(T), syslog.LOG_WARNING, DEBUG)
+    T = None
 
   return T
 
