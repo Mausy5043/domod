@@ -123,7 +123,7 @@ def do_work():
     syslog_trace("  T0 = {0:0.1f}*C        T = {1:0.1f}degC".format(T0, T), False, DEBUG)
 
   # validate the temperature
-  if T > 45.0:
+  if (T is not None) and (T > 45.0):
     # can't believe my sensors. Probably a glitch. Log this and return with no result
     syslog_trace("Tambient (HIGH): {0}".format(T), syslog.LOG_WARNING, DEBUG)
     T = None
