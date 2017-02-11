@@ -156,6 +156,7 @@ def syslog_trace(trace, logerr, out2console):
     if line and out2console:
       print(line)
 
+
 if __name__ == "__main__":
   daemon = MyDaemon('/tmp/' + MYAPP + '/' + MYID + '.pid')
   if len(sys.argv) == 2:
