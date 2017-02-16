@@ -13,7 +13,6 @@ from libdaemon import Daemon
 
 from urllib.request import Request, urlopen
 from lxml import etree
-# from bs4 import BeautifulSoup
 
 # constants
 DEBUG       = False
@@ -111,16 +110,7 @@ def do_work():
              while ancestor.getprevious() is not None:
                  del ancestor.getparent()[0]
 
-#    output = response.read()
-#    soup = BeautifulSoup(output, "lxml")
     souptime = time.time()-ardtime
-
-#    MSwind = str(soup.buienradarnl.weergegevens.actueel_weer.weerstations.find(id=6350).windsnelheidms)
-#    GRwind = str(soup.buienradarnl.weergegevens.actueel_weer.weerstations.find(id=6350).windrichtinggr)
-    # datum = str(soup.buienradarnl.weergegevens.actueel_weer.weerstations.find(id=6350).datum)
-#    ms = MSwind.replace("<", " ").replace(">", " ").split()[1]
-#    gr = GRwind.replace("<", " ").replace(">", " ").split()[1]
-
     syslog_trace(":   [do_work]  : {0:.2f}s".format(souptime), False, DEBUG)
 
   except Exception as err:
