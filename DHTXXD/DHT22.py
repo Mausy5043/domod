@@ -256,7 +256,7 @@ if __name__ == "__main__":
     r += 1
     s.trigger()
     time.sleep(0.2)
-    print("{} {} {} {:3.2f} {} {} {} {}".format(
+    print("{0} {1} {2} {3:3.2f} {4} {5} {6} {7}".format(
       r, s.humidity(), s.temperature(), s.staleness(),
       s.bad_checksum(), s.short_message(), s.missing_message(),
       s.sensor_resets()))
