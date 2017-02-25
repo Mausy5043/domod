@@ -14,7 +14,7 @@ import numpy
 # SDI     : 19  (GPIO10; MOSI)
 # CS      : 24  (GPIO08; CE0)
 
-class bmp183():
+class Bmp183():
   """
   For use on Raspberry Pi
   Class for Bosch BMP183 pressure and temperature sensor with SPI interface as sold by Adafruit
