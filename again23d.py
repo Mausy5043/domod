@@ -22,9 +22,9 @@ import time
 import traceback
 
 from libdaemon import Daemon
-from pigbmp183 import bmp183
+from pigbmp183 import Bmp183
 
-bmp = bmp183()
+bmp = Bmp183()
 
 # constants
 DEBUG       = False
