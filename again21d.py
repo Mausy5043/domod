@@ -48,7 +48,9 @@ OWdev = glob.glob(OWdir + '28*')[0]
 OWfile = OWdev + '/w1_slave'
 
 class MyDaemon(Daemon):
-  def run(self):
+  """Definition of daemon."""
+  @staticmethod
+  def run():
     iniconf         = configparser.ConfigParser()
     inisection      = MYID
     home            = os.path.expanduser('~')

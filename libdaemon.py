@@ -135,7 +135,8 @@ class Daemon:
     self.stop()
     self.start()
 
-  def run(self):
+  @staticmethod
+  def run():
     """
     You should override this method when you subclass Daemon.
     It will be called after the process has been

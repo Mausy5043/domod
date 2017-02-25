@@ -47,7 +47,9 @@ DHT22T_offset = -0.8
 DHT22H_offset = 0.0
 
 class MyDaemon(Daemon):
-  def run(self):
+  """Definition of daemon."""
+  @staticmethod
+  def run():
     iniconf         = configparser.ConfigParser()
     inisection      = MYID
     home            = os.path.expanduser('~')
