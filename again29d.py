@@ -29,15 +29,15 @@ class MyDaemon(Daemon):
     s               = iniconf.read(home + '/' + MYAPP + '/config.ini')
     syslog_trace("Config file   : {0}".format(s), False, DEBUG)
     syslog_trace("Options       : {0}".format(iniconf.items(inisection)), False, DEBUG)
-    reportTime      = iniconf.getint(inisection, "reporttime")
+    reporttime      = iniconf.getint(inisection, "reporttime")
     cycles          = iniconf.getint(inisection, "cycles")
-    samplesperCycle = iniconf.getint(inisection, "samplespercycle")
+    samplespercycle = iniconf.getint(inisection, "samplespercycle")
     flock           = iniconf.get(inisection, "lockfile")
     fdata           = iniconf.get(inisection, "resultfile")
 
-    samples         = samplesperCycle * cycles           # total number of samples averaged
-    sampleTime      = reportTime/samplesperCycle         # time [s] between samples
-    # cycleTime       = samples * sampleTime               # time [s] per cycle
+    samples         = samplespercycle * cycles           # total number of samples averaged
+    sampletime      = reporttime/samplespercycle         # time [s] between samples
+    # cycleTime       = samples * sampletime               # time [s] per cycle
 
     data            = []                                 # array for holding sampledata
 
@@ -52,7 +52,7 @@ class MyDaemon(Daemon):
 
     while True:
       try:
-        startTime = time.time()
+        starttime = time.time()
         da = [float(d) for d in result]
         if ((da)[0] >= 0.0) and ((da)[1] >= 0.0):
           data.append([float(d) for d in result])
@@ -61,7 +61,7 @@ class MyDaemon(Daemon):
           syslog_trace("Data     : {0}".format(data),   False, DEBUG)
 
         # report sample average
-        if (startTime % reportTime < sampleTime):   # sync reports to reportTime
+        if (starttime % reporttime < sampletime):   # sync reports to reporttime
           somma       = [sum(d) for d in zip(*data)]
           averages    = [float(format(sm / len(data), '.3f')) for sm in somma]
           syslog_trace("Averages : {0}".format(averages),  False, DEBUG)
@@ -80,11 +80,11 @@ class MyDaemon(Daemon):
 
           do_report(averages, flock, fdata)
 
-          waitTime    = sampleTime - (time.time() - startTime) - (startTime % sampleTime)
-          if (waitTime > 0):
-            syslog_trace("Waiting  : {0}s".format(waitTime), False, DEBUG)
+          waittime    = sampletime - (time.time() - starttime) - (starttime % sampletime)
+          if (waittime > 0):
+            syslog_trace("Waiting  : {0}s".format(waittime), False, DEBUG)
             syslog_trace("................................", False, DEBUG)
-            time.sleep(waitTime)
+            time.sleep(waittime)
       except Exception:
         syslog_trace("Unexpected error in run()", syslog.LOG_CRIT, DEBUG)
         syslog_trace(traceback.format_exc(), syslog.LOG_CRIT, DEBUG)
