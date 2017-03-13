@@ -122,6 +122,11 @@ def do_work():
     logtext = "****** after                 {0:.2f} s".format(ardtime)
     syslog_trace(logtext, syslog.LOG_DEBUG, DEBUG)
 
+  if ms == '-':
+    ms = 0.0
+  if gr == '-':
+    gr = 270.0
+
   gilzerijen = '{0}, {1}'.format(ms, gr)
   return gilzerijen
 
