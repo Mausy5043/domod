@@ -31,12 +31,16 @@ install_package "build-essential"
 install_package "python3-dev"
 install_package "python3-pip"
 install_package "python3-numpy"
+install_package "python-libxml2"
+install_package "python-libxslt1"
+install_package "python3-lxml"
 
 # MySQL support
 install_package "mysql-client"
 install_package "libmysqlclient-dev"
 # install_package "python-mysqldb"  # only required by python 2
 sudo pip3 install mysqlclient     # only required by python 3
+
 
 pushd "$HOME/domod"
   # To suppress git detecting changes by chmod:
